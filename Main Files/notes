@@ -1,0 +1,34 @@
+//// read analog LM35 sensor
+//float LM35_temp(int pin){
+//  unsigned int tempread = 0;
+//  unsigned int intmp;
+//  float temp;
+//  int i;
+// 
+//  Serial.print("Reading analog temp on pin: ");
+//  Serial.println(pin);
+// 
+//  // first sample seems to fluctuate a lot. Disregard it
+//    intmp=analogRead(pin),
+//    Serial.println(intmp);
+//    delay(60);
+// 
+//  // 11 bit virtual resolution, according to http://www.atmel.com/dyn/resources/prod_documents/doc8003.pdf
+//  // arduino ADC is 10 bit real resolution
+//  // for 12 bit resolution 16 samples and >> 4 is needed
+//  for (i=0;i<=3;i++){
+//    intmp=analogRead(pin),
+//    tempread = tempread + intmp;  // read  more samples. better stability.
+//    Serial.println(intmp);
+//    delay(60);
+//  }
+//  tempread = tempread>>2;.
+// 
+//  // default voltage is 5.0,  analogReference(INTERNAL) sets it to 1.1.
+//  // temp = temp / 5.0;
+//  //temp = (5.0 * (float)tempread* 100.0)/1024.0;  //convert the analog data to temperature
+//  temp = 110 * (float)tempread / 1024; // analogReference(INTERNAL); needed
+//  Serial.print("Temp is: ");
+//  Serial.println(temp);
+//  return temp;
+//}// LM35

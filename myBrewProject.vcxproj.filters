@@ -1,0 +1,169 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="_core">
+      <UniqueIdentifier>{b618446f-64ad-4bb2-b2a1-b9e970ece916}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_libraries">
+      <UniqueIdentifier>{660ac305-9c9f-4e29-8926-555e71201eb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="_libraries\ST7565">
+      <UniqueIdentifier>{72103e47-ab11-475a-af35-867d93d67ea0}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Main Files\notes">
+      <Filter>Header Files</Filter>
+    </None>
+    <None Include="Main Files\myBrewProject.ino" />
+    <None Include="Main Files\timer.ino" />
+    <None Include="Main Files\WARP.ino" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\VSPDE.h" />
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\binary.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Client.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\HardwareSerial.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\IPAddress.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\new.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Platform.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Print.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Printable.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Server.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Stream.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Udp.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\USBAPI.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\USBCore.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\USBDesc.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\WCharacter.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_private.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\WString.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h">
+      <Filter>_core</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\arduino-1.0.1\libraries\ST7565\ST7565.h">
+      <Filter>_libraries\ST7565</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.myBrewProject.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Main Files\Globals.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Visual Micro\.Main Files.vsarduino.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\VSPDE.cpp" />
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\CDC.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\HardwareSerial.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\HID.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\IPAddress.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\main.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\new.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Print.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Stream.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Tone.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\USBCore.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\WInterrupts.c">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\wiring.c">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_analog.c">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_digital.c">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_pulse.c">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_shift.c">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\WMath.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\WString.cpp">
+      <Filter>_core</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\libraries\ST7565\glcdfont.c">
+      <Filter>_libraries\ST7565</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\arduino-1.0.1\libraries\ST7565\ST7565.cpp">
+      <Filter>_libraries\ST7565</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
