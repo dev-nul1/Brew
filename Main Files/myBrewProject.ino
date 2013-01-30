@@ -81,7 +81,7 @@ int tempread(int tempPinNum)
 }
 
 
-void updateDisplay(int const temp)
+void updateHLTDisplay(int const temp)
 {
 	char tempMsg[32];						//Array to hold our data for the tempature conversions and print it to strings
 	sprintf(tempMsg,"HLT  Temp: %d`C", (int)temp);
@@ -90,7 +90,7 @@ void updateDisplay(int const temp)
 }
 
 
-void updateDisplay1(int const temp)
+void updateMashDisplay(int const temp)
 {
 	char tempMsg[32];						//Array to hold our data for the tempature conversions and print it to strings
 	sprintf(tempMsg,"Mash Temp: %d`C", (int)temp);
@@ -130,8 +130,8 @@ void loop()
 	//Serial.println(freeRam());
 	int temp1 = tempread(tempPin);
 	//int temp2 = tempread(tempPin1);
-	updateDisplay(temp1);
-	//updateDisplay1(temp2);
+	updateHLTDisplay(temp1);				// read the temp from the boil kettle
+	//updateMashDisplay1(temp2);
 
 	delay(100);   
 	controlHeating(temp1);

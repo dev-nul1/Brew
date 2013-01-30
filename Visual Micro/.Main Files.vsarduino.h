@@ -27,8 +27,8 @@ extern "C" void __cxa_pure_virtual() {}
 //already defined in arduno.h
 int freeRam(void);
 int tempread(int tempPinNum);
-void updateDisplay(int const temp);
-void updateDisplay1(int const temp);
+void updateHLTDisplay(int const temp);
+void updateMashDisplay(int const temp);
 void controlHeating(int temp);
 //already defined in arduno.h
 
