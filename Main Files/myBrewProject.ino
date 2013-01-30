@@ -30,7 +30,7 @@ extern uint8_t st7565_buffer[1024];
 // the setup routine runs once when you press reset:
 
 
-const char versionnumber[5] = ".1";     // current build version
+const char versionnumber[5] = "0.1";     // current build version
 
 void setup() {                
 	
