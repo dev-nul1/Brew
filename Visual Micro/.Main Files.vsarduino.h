@@ -24,12 +24,15 @@
 typedef unsigned char byte;
 extern "C" void __cxa_pure_virtual() {}
 
+void formattime(int hours, int mins, int secs, char time[]);
+void formattimeseconds(long secs, char time[]);
 //already defined in arduno.h
 int freeRam(void);
 int tempread(int tempPinNum);
 void updateHLTDisplay(int const temp);
 void updateMashDisplay(int const temp);
 void controlHeating(int temp);
+void TempTime();
 //already defined in arduno.h
 
 #include "D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" 

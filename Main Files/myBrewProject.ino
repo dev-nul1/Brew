@@ -1,17 +1,16 @@
 #include "ST7565.h"
 #include "stdio.h"
 
+//
 // LETS SEE IF I CAN GET AN ARDUINO TO HELP THE BREW PROCESS.
+//
 
-
-
+//
+//BASICS
+//
 const byte tempPin	= 0;	
 const byte tempPin1 = 1;				// TEMP SENSOR PIN #
 const byte PinElementHlt = 10;			// SSR FOR HLT/KETTLE ELEMENT
-
-
-
-
 
 // the LCD backlight is connected up to a pin so you can turn it on & off
 //#define BACKLIGHT_LED 11
@@ -27,16 +26,71 @@ ST7565 glcd(9, 8, 7, 6, 5);			// WE NEED TO SETUP THE BACKLIGHT AND SET A COLOR.
 
 // the buffer for the image display
 extern uint8_t st7565_buffer[1024];
+
+const char versionnumber[5] = "0.2";     // current build version
+
+
+// TIME STUFF
+//
+//extern volatile unsigned long timer0_millis;  //used to reset internal timer millis
+unsigned long previous_millis_value = 0;		//this stuff for elapsed time
+unsigned long cumulativeSeconds = 0;
+unsigned int totalseconds = 0;
+unsigned int totalminutes = 0;
+unsigned int totalhours = 0;
+char totaltime[9] = "  :  :  ";
+char lasttotaltime[9] = "  :  :  ";
+char stepelapsedtime[9] = "  :  :  ";
+unsigned long cyclecount=0;
+char steptotaltime[9] = "  :  :  ";
+char temptime[9] = "  :  :  ";
+
+
+long stepelapsed = 0;  // number of milliseconds remaining
+int stepelapsedsecs = 0;  // number of seconds reamaining
+int timercalculated = 0; // has the timer for a timed step been set (initially = false)
+
+int temparray[16] = {
+  0,1,1,2,3,3,4,4,5,6,6,7,8,8,9,9}; // temperature lookup array
+
+ void formattime(int hours, int mins, int secs, char time[]) { // format a time to a string from hours, mins, secs
+  // PW 20090203 Added support for overflow of mins and secs
+  if (secs>60) {
+    secs=secs-60;
+    mins++;
+  }
+  if (mins>60) {
+    mins=mins-60;
+    hours++;
+  }
+  time[2]=':';
+  time[5]=':';
+  time[0]=48+(hours / 10);
+  time[1]=48+(hours % 10);
+  time[3]=48+(mins / 10);
+  time[4]=48+(mins % 10);
+  time[6]=48+(secs / 10);
+  time[7]=48+(secs % 10);
+}
+
+void formattimeseconds(long secs, char time[])			// format a time to a string from seconds only
+{		
+  int tempsecs = secs % 60;
+  int tempmins = (secs / 60) % 60;
+  int temphours = secs  / 3600;
+  formattime(temphours,tempmins,tempsecs,time);
+
+}
+
+
+//
 // the setup routine runs once when you press reset:
-
-
-const char versionnumber[5] = "0.1";     // current build version
-
+//
 void setup() {                
 	
-	pinMode(PinElementHlt, OUTPUT);		// sets the digital pin as output
+	pinMode(PinElementHlt, OUTPUT);						// sets the digital pin as output
 
-	Serial.println(freeRam());			// display free ram
+	Serial.println(freeRam());							// display free ram
   
 	glcd.st7565_init();									//Initialize the LCD
 	glcd.st7565_command(CMD_DISPLAY_ON);
@@ -47,7 +101,7 @@ void setup() {
 	delay(2000);
 	glcd.clear();
 
-	Serial.begin(9600);					//opens serial port, sets data rate to 9600 bps
+	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
 }
 
 int freeRam(void)
@@ -124,10 +178,8 @@ void controlHeating(int temp)
 	}*/
 }
 
-
-void loop() 
+void TempTime()
 {
-	//Serial.println(freeRam());
 	int temp1 = tempread(tempPin);
 	//int temp2 = tempread(tempPin1);
 	updateHLTDisplay(temp1);				// read the temp from the boil kettle
@@ -137,4 +189,29 @@ void loop()
 	controlHeating(temp1);
 
 
+	//
+	// Might want to embed this into another function..
+	//
+	while(millis() - previous_millis_value >= 1000)
+    {
+      cumulativeSeconds++;
+      previous_millis_value += 1000;
+    }
+    formattimeseconds(cumulativeSeconds,totaltime);
+
+    if (totaltime!=lasttotaltime)  // only update if changed to prevent flooding
+    {
+      Serial.print("Running time: ");              
+      delay(300);
+      Serial.println(totaltime);
+      lasttotaltime==totaltime;
+    }
+}
+void loop() 
+{
+	//Serial.println(freeRam());
+
+	TempTime();
+
+	
 }
