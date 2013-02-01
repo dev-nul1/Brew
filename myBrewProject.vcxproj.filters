@@ -32,7 +32,6 @@
     <None Include="Main Files\WARP.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\VSPDE.h" />
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h">
       <Filter>_core</Filter>
     </ClInclude>
@@ -104,7 +103,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\VSPDE.cpp" />
     <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\CDC.cpp">
       <Filter>_core</Filter>
     </ClCompile>

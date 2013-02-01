@@ -11,6 +11,8 @@
 const byte tempPin	= 0;	
 const byte tempPin1 = 1;				// TEMP SENSOR PIN #
 const byte PinElementHlt = 10;			// SSR FOR HLT/KETTLE ELEMENT
+byte buttonPress = 1;
+
 
 // the LCD backlight is connected up to a pin so you can turn it on & off
 //#define BACKLIGHT_LED 11
@@ -53,6 +55,7 @@ int timercalculated = 0; // has the timer for a timed step been set (initially =
 int temparray[16] = {
   0,1,1,2,3,3,4,4,5,6,6,7,8,8,9,9}; // temperature lookup array
 
+
  void formattime(int hours, int mins, int secs, char time[]) { // format a time to a string from hours, mins, secs
   // PW 20090203 Added support for overflow of mins and secs
   if (secs>60) {
@@ -72,6 +75,7 @@ int temparray[16] = {
   time[6]=48+(secs / 10);
   time[7]=48+(secs % 10);
 }
+
 
 void formattimeseconds(long secs, char time[])			// format a time to a string from seconds only
 {		
@@ -104,6 +108,7 @@ void setup() {
 	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
 }
 
+
 int freeRam(void)
 {
   extern int  __bss_end; 
@@ -117,6 +122,7 @@ int freeRam(void)
   }
   return free_memory; 
 } 
+
 
 int tempread(int tempPinNum)
 {
@@ -157,7 +163,7 @@ void controlHeating(int temp)
 {
 	if (temp > 20 && temp <= 24) {
 		glcd.drawstring(0, 2, "     ELEMENT ON!");
-		glcd.drawstring(0, 3, "   TRYING TO BOIL!");
+		glcd.drawstring(0, 3, "  STARTING TO BOIL!");
 		
 		digitalWrite(PinElementHlt, HIGH); 
 		glcd.display();
@@ -177,6 +183,7 @@ void controlHeating(int temp)
 		glcd.clear();
 	}*/
 }
+
 
 void TempTime()
 {
@@ -207,11 +214,31 @@ void TempTime()
       lasttotaltime==totaltime;
     }
 }
+
+
+//
+//	This should at some point cause the device to trigger states like, mash in, boil mode, idle... etc.
+//
+byte currentState = 0;
+
+void StateMachine()
+{
+	switch(currentState)
+	{
+	case 0:
+		Serial.println("state idle");
+		break;
+
+	case 1:
+		Serial.println("state boilMode");
+		break;
+	}
+}
+
+
 void loop() 
 {
 	//Serial.println(freeRam());
 
 	TempTime();
-
-	
 }
