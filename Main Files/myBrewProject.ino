@@ -1,5 +1,6 @@
 #include "ST7565.h"
 #include "stdio.h"
+#include <EEPROM.h>
 
 //
 // LETS SEE IF I CAN GET AN ARDUINO TO HELP THE BREW PROCESS.
@@ -11,7 +12,10 @@
 const byte tempPin	= 0;	
 const byte tempPin1 = 1;				// TEMP SENSOR PIN #
 const byte PinElementHlt = 10;			// SSR FOR HLT/KETTLE ELEMENT
+
 byte buttonPress = 1;
+
+int incoming = 0;						// placeholder for serial read stuff 
 
 
 // the LCD backlight is connected up to a pin so you can turn it on & off
@@ -31,7 +35,7 @@ extern uint8_t st7565_buffer[1024];
 
 const char versionnumber[5] = "0.2";     // current build version
 
-
+byte checkfloat;
 // TIME STUFF
 //
 //extern volatile unsigned long timer0_millis;  //used to reset internal timer millis
@@ -195,7 +199,6 @@ void TempTime()
 	delay(100);   
 	controlHeating(temp1);
 
-
 	//
 	// Might want to embed this into another function..
 	//
@@ -219,14 +222,14 @@ void TempTime()
 //
 //	This should at some point cause the device to trigger states like, mash in, boil mode, idle... etc.
 //
-byte currentState = 0;
 
 void StateMachine()
 {
-	switch(currentState)
+	int ok;
+	switch(ok)
 	{
 	case 0:
-		Serial.println("state idle");
+		Serial.println("state waiting command");
 		break;
 
 	case 1:
@@ -236,9 +239,35 @@ void StateMachine()
 }
 
 
+//button1 = Button(2);       // Button 1
+
+byte incomingByte = 0;
+
 void loop() 
 {
-	//Serial.println(freeRam());
+	while (1) 
+	{
+		if (Serial.available() > 0)
+		{
+		  incoming = Serial.read();
+		}
+		else
+		{
+		  incoming = 0;
+		}
+		//if ((button1) || ((char)incoming == '1'))
+		if (((char)incoming == '1'))
+		{
+		  delay(500);     
+		  manualmode();
+		}
+		if (((char)incoming == '2'))
+		{
+		  delay(500);     
+		  setupmenu();
+		}
+	}
+	//StateMachine();
 
-	TempTime();
+	//TempTime();
 }
