@@ -30,6 +30,7 @@
     <None Include="Main Files\myBrewProject.ino" />
     <None Include="Main Files\timer.ino" />
     <None Include="Main Files\WARP.ino" />
+    <None Include="Main Files\setup.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h">

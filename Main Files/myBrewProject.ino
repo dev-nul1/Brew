@@ -174,13 +174,13 @@ void controlHeating(int temp)
 	}
 	else if (temp > 25) {
 		delay(50);
-	    glcd.drawstring(1, 5, " It is too hot!");
+	    glcd.drawstring(1, 4, " It is too hot!");
 	    glcd.display(); 
 		digitalWrite(PinElementHlt, LOW); 
 	}
 	else if(temp <=19){
 		delay(50);
-	   glcd.drawstring(1, 5, " It is too cold!");
+	   glcd.drawstring(1, 4, " It is too cold!");
 	   glcd.display();
 	}
 	/*else{
@@ -215,6 +215,9 @@ void TempTime()
       delay(300);
       Serial.println(totaltime);
       lasttotaltime==totaltime;
+	  glcd.drawstring(0, 5, "<>TIME:");
+	  glcd.drawstring(50, 5, totaltime);
+	  glcd.display();
     }
 }
 
@@ -245,6 +248,7 @@ byte incomingByte = 0;
 
 void loop() 
 {
+	manualmode();
 	while (1) 
 	{
 		if (Serial.available() > 0)
@@ -253,7 +257,7 @@ void loop()
 		}
 		else
 		{
-		  incoming = 0;
+		  incoming = 1;
 		}
 		//if ((button1) || ((char)incoming == '1'))
 		if (((char)incoming == '1'))
