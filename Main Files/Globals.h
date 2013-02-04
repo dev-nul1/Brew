@@ -6,35 +6,21 @@
 
 #define BAD_TEMP -32768
 
-typedef enum {
-	//Reserve first X slots for Vessel Heat and second X slots for Vessel Idle
-//	OUTPUTPROFILE_FILLSTRIKE = VESSELS_MAX * 2,
-	OUTPUTPROFILE_FILLSPARGE,
-	OUTPUTPROFILE_FILLHEX,
-	OUTPUTPROFILE_FILLGRAIN,
-	OUTPUTPROFILE_STRIKEXFER,
-	OUTPUTPROFILE_GRAINXFER,
-	OUTPUTPROFILE_SPARGEIN,
-	OUTPUTPROFILE_SPARGEOUT,
-	OUTPUTPROFILE_VOROLAUF,
-	OUTPUTPROFILE_WHIRLPOOL,
-	OUTPUTPROFILE_CHILL,
-	OUTPUTPROFILE_WORTOUT,
-	OUTPUTPROFILE_DRAIN,
-	OUTPUTPROFILE_USER1,
-	OUTPUTPROFILE_USER2,
-	OUTPUTPROFILE_USER3,
-	OUTPUTPROFILE_USER4,
-	OUTPUTPROFILE_NUMPROFILES
-} OutputProfiles;
-
-
 //Timers
 typedef enum {
 	TIMER_MASH,
 	TIMER_BOIL,
 	TIMER_NUMTIMERS
 } timers;
+
+
+//
+//Brew Steps PS 
+// 
+typedef enum  {
+	IDLE,
+	MANUALMODE
+}brewSteps;
 
 //Brew Steps
 typedef enum {
@@ -55,14 +41,8 @@ typedef enum {
 	//BREWSTEP_BOIL = BREWSTEP_SPARGE + SPARGE_BATCHESMAX * 3 + 1,
 	BREWSTEP_CHILL,
 	BREWSTEP_STEPCOUNT
-} brewSteps;
+} brewStepsOLD;
 
-//Zones
-typedef enum {
-	BREWZONE_MASH,
-	BREWZONE_BOIL,
-	BREWZONE_COUNT
-} brewZones;
 
 //Events
 typedef enum {
@@ -77,19 +57,16 @@ typedef enum {
 #define CMD_MSG_FIELDS 25
 #define CMD_FIELD_CHARS 21
 
-#define BT_I2C_ADDR 0x10
-#define BTNIC_I2C_ADDR 0x11
+#define ASCII	0
+#define BTNIC	1
+#define BINARY	2
 
-#define ASCII 0
-#define BTNIC 1
-#define BINARY 2
-
-typedef enum {
-	CONTROLSTATE_OFF,
-	CONTROLSTATE_AUTO,
-	CONTROLSTATE_ON,
-	NUM_CONTROLSTATES
-} ControlState;
+//typedef enum {
+//	CONTROLSTATE_OFF,
+//	CONTROLSTATE_AUTO,
+//	CONTROLSTATE_ON,
+//	NUM_CONTROLSTATES
+//} ControlState;
 
 #endif
 

@@ -1,5 +1,5 @@
 //Board = Arduino Mega (ATmega1280)
-#define ARDUINO 101
+#define ARDUINO 103
 #define __AVR_ATmega1280__
 #define F_CPU 16000000L
 #define __AVR__
@@ -24,11 +24,8 @@
 typedef unsigned char byte;
 extern "C" void __cxa_pure_virtual() {}
 
-void formattime(int hours, int mins, int secs, char time[]);
-void formattimeseconds(long secs, char time[]);
 //already defined in arduno.h
-int freeRam(void);
-int tempread(int tempPinNum);
+int tempRead(int tempPinNum);
 void updateHLTDisplay(int const temp);
 void updateMashDisplay(int const temp);
 void controlHeating(int temp);
@@ -36,12 +33,15 @@ void TempTime();
 void StateMachine();
 //already defined in arduno.h
 void setupmenu();
+int freeRam(void);
+void formatTime(int hours, int mins, int secs, char time[]);
+void formatTimeSeconds(long secs, char time[]);
 void manualmode();
 
-#include "D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" 
-#include "D:\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\arduino.h"
-#include "D:\Arduino\sketches\myBrewProject\Main Files\myBrewProject.ino"
-#include "D:\Arduino\sketches\myBrewProject\Main Files\Globals.h"
-#include "D:\Arduino\sketches\myBrewProject\Main Files\WARP.ino"
-#include "D:\Arduino\sketches\myBrewProject\Main Files\setup.ino"
-#include "D:\Arduino\sketches\myBrewProject\Main Files\timer.ino"
+#include "C:\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" 
+#include "C:\arduino-1.0.1\hardware\arduino\cores\arduino\arduino.h"
+#include "C:\CODE\Brew\Main Files\myBrewProject.ino"
+#include "C:\CODE\Brew\Main Files\Globals.h"
+#include "C:\CODE\Brew\Main Files\WARP.ino"
+#include "C:\CODE\Brew\Main Files\setup.ino"
+#include "C:\CODE\Brew\Main Files\timer.ino"

@@ -1,8 +1,8 @@
 <VisualMicro>
-  <Program Name="myBrewProject" Ext=".ino" Location="D:\Arduino\sketches\myBrewProject\Main Files">
-    <Compile CompilerErrors="0" ConfigurationName="Debug" StopOnError="False" OptimiseLibs="True" OptimiseCore="True" BuildPath="C:\Users\devnull\AppData\Local\VMicro\Arduino\Builds\myBrewProject\mega" IncludeDebug="0" IncludesDebug="0" SketchName="myBrewProject" IsCompiled="1" />
+  <Program Name="myBrewProject" Ext=".ino" Location="C:\CODE\Brew\Main Files">
+    <Compile CompilerErrors="0" ConfigurationName="Debug" StopOnError="False" OptimiseLibs="True" OptimiseCore="True" BuildPath="C:\Users\viOle\AppData\Local\VMicro\Arduino\Builds\myBrewProject\mega" IncludeDebug="0" IncludesDebug="0" SketchName="myBrewProject" IsCompiled="1" />
     <Platform Name="Arduino">
-      <Board Name="mega" Description="Arduino Mega (ATmega1280)" CoreFolder="D:\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino" VariantFullPath="D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega" bootloader.extended_fuses="0xF5" bootloader.file="ATmegaBOOT_168_atmega1280.hex" bootloader.high_fuses="0xDA" bootloader.lock_bits="0x0F" bootloader.low_fuses="0xFF" bootloader.path="atmega" bootloader.unlock_bits="0x3F" build.core="arduino" build.f_cpu="16000000L" build.mcu="atmega1280" build.variant="mega" build.variant.vmresolved="D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega" name="Arduino Mega (ATmega1280)" upload.maximum_size="126976" upload.protocol="arduino" upload.speed="57600" />
+      <Board Name="mega" Description="Arduino Mega (ATmega1280)" CoreFolder="C:\arduino-1.0.1\hardware\arduino\cores\arduino" VariantFullPath="C:\arduino-1.0.1\hardware\arduino\variants\mega" bootloader.extended_fuses="0xF5" bootloader.file="ATmegaBOOT_168_atmega1280.hex" bootloader.high_fuses="0xDA" bootloader.lock_bits="0x0F" bootloader.low_fuses="0xFF" bootloader.path="atmega" bootloader.unlock_bits="0x3F" build.core="arduino" build.f_cpu="16000000L" build.mcu="atmega1280" build.variant="mega" build.variant.vmresolved="C:\arduino-1.0.1\hardware\arduino\variants\mega" name="Arduino Mega (ATmega1280)" upload.maximum_size="126976" upload.protocol="arduino" upload.speed="57600" />
     </Platform>
     <VCCodeModel>
       <VCCodeMacros>
@@ -11,7 +11,7 @@
         <VCCodeMacro Name="client_h" Value="" />
         <VCCodeMacro Name="server_h" Value="" />
         <VCCodeMacro Name="GLOBAL_H" Value="" />
-        <VCCodeMacro Name="ARDUINO" Value="101" />
+        <VCCodeMacro Name="ARDUINO" Value="103" />
         <VCCodeMacro Name="ARDUINO" Value="101" />
         <VCCodeMacro Name="__PLATFORM_H__" Value="" />
         <VCCodeMacro Name="__AVR_ATmega1280__" Value="" />
@@ -89,11 +89,11 @@
         <VCCodeMacro Name="NOINLINE" Value="__attribute__((noinline))" />
         <VCCodeMacro Name="INPUT_PULLUP" Value="0x2" />
         <VCCodeMacro Name="B00010" Value="2" />
-        <VCCodeMacro Name="HardwareSerial_h" Value="" />
         <VCCodeMacro Name="Stream_h" Value="" />
         <VCCodeMacro Name="CLEAR_FEATURE" Value="1" />
         <VCCodeMacro Name="String_class_h" Value="" />
         <VCCodeMacro Name="B000010" Value="2" />
+        <VCCodeMacro Name="HardwareSerial_h" Value="" />
         <VCCodeMacro Name="SET_FEATURE" Value="3" />
         <VCCodeMacro Name="CDC_INTERFACE_COUNT" Value="2" />
         <VCCodeMacro Name="true" Value="0x1" />
@@ -134,7 +134,6 @@
         <VCCodeMacro Name="EP_TYPE_ISOCHRONOUS_IN" Value="0x41" />
         <VCCodeMacro Name="GET_INTERFACE" Value="10" />
         <VCCodeMacro Name="NUM_DIGITAL_PINS" Value="70" />
-        <VCCodeMacro Name="LOGO16_GLCD_HEIGHT" Value="16" />
         <VCCodeMacro Name="DEG_TO_RAD" Value="0.017453292519943295769236907684886" />
         <VCCodeMacro Name="B000011" Value="3" />
         <VCCodeMacro Name="OCT" Value="8" />
@@ -142,7 +141,7 @@
         <VCCodeMacro Name="SET_INTERFACE" Value="11" />
         <VCCodeMacro Name="NUM_ANALOG_INPUTS" Value="16" />
         <VCCodeMacro Name="swap" Value="{ uint8_t t = a; a = b; b = t; }" />
-        <VCCodeMacro Name="LOGO16_GLCD_WIDTH" Value="16" />
+        <VCCodeMacro Name="LOGO16_GLCD_HEIGHT" Value="16" />
         <VCCodeMacro Name="RAD_TO_DEG" Value="57.295779513082320876798154814105" />
         <VCCodeMacro Name="B0000011" Value="3" />
         <VCCodeMacro Name="BIN" Value="2" />
@@ -150,6 +149,7 @@
         <VCCodeMacro Name="MILLIS_INC" Value="(MICROSECONDS_PER_TIMER0_OVERFLOW / 1000)" />
         <VCCodeMacro Name="analogInputToDigitalPin" Value="((p &lt; 16) ? (p) + 54 : -1)" />
         <VCCodeMacro Name="ST7565_STARTBYTES" Value="1" />
+        <VCCodeMacro Name="LOGO16_GLCD_WIDTH" Value="16" />
         <VCCodeMacro Name="B00000011" Value="3" />
         <VCCodeMacro Name="HID_ENPOINT_COUNT" Value="1" />
         <VCCodeMacro Name="digitalPinHasPWM" Value="(((p) &gt;= 2 &amp;&amp; (p) &lt;= 13) || ((p) &gt;= 44 &amp;&amp; (p)&lt;= 46))" />
@@ -176,7 +176,7 @@
         <VCCodeMacro Name="B0000100" Value="4" />
         <VCCodeMacro Name="LSB" Value="((_x) &amp; 0xFF)" />
         <VCCodeMacro Name="FRACT_MAX" Value="(1000 &gt;&gt; 3)" />
-        <VCCodeMacro Name="F" Value="(reinterpret_cast&lt;__FlashStringHelper *&gt;(PSTR(string_literal)))" />
+        <VCCodeMacro Name="F" Value="(reinterpret_cast&lt;const __FlashStringHelper *&gt;(PSTR(string_literal)))" />
         <VCCodeMacro Name="B00000100" Value="4" />
         <VCCodeMacro Name="MSB" Value="((_x) &gt;&gt; 8)" />
         <VCCodeMacro Name="REQUEST_STANDARD" Value="0x00" />
@@ -184,7 +184,6 @@
         <VCCodeMacro Name="CMD_DISPLAY_OFF" Value="0xAE" />
         <VCCodeMacro Name="CHANGE" Value="1" />
         <VCCodeMacro Name="B101" Value="5" />
-        <VCCodeMacro Name="TCCR2A" Value="TCCR2" />
         <VCCodeMacro Name="REQUEST_CLASS" Value="0x20" />
         <VCCodeMacro Name="CDC_DATA_INTERFACE" Value="1" />
         <VCCodeMacro Name="cbi" Value="(_SFR_BYTE(sfr) &amp;= ~_BV(bit))" />
@@ -192,79 +191,80 @@
         <VCCodeMacro Name="FALLING" Value="2" />
         <VCCodeMacro Name="B0101" Value="5" />
         <VCCodeMacro Name="RAWHID_USAGE_PAGE" Value="0xFFC0" />
-        <VCCodeMacro Name="TCCR2B" Value="TCCR2" />
+        <VCCodeMacro Name="TCCR2A" Value="TCCR2" />
         <VCCodeMacro Name="REQUEST_VENDOR" Value="0x40" />
         <VCCodeMacro Name="CDC_FIRST_ENDPOINT" Value="1" />
-        <VCCodeMacro Name="SERIAL_BUFFER_SIZE" Value="16" />
         <VCCodeMacro Name="RISING" Value="3" />
         <VCCodeMacro Name="B00101" Value="5" />
         <VCCodeMacro Name="RAWHID_USAGE" Value="0x0C00" />
-        <VCCodeMacro Name="COM2A1" Value="COM21" />
+        <VCCodeMacro Name="TCCR2B" Value="TCCR2" />
         <VCCodeMacro Name="REQUEST_TYPE" Value="0x60" />
         <VCCodeMacro Name="CDC_ENDPOINT_ACM" Value="(CDC_FIRST_ENDPOINT)" />
         <VCCodeMacro Name="CMD_SET_DISP_START_LINE" Value="0x40" />
         <VCCodeMacro Name="B000101" Value="5" />
+        <VCCodeMacro Name="TXC0" Value="TXC" />
         <VCCodeMacro Name="RAWHID_TX_SIZE" Value="64" />
-        <VCCodeMacro Name="COM2A0" Value="COM20" />
+        <VCCodeMacro Name="COM2A1" Value="COM21" />
         <VCCodeMacro Name="CDC_ENDPOINT_OUT" Value="(CDC_FIRST_ENDPOINT+1)" />
         <VCCodeMacro Name="sbi" Value="(_SFR_BYTE(sfr) |= _BV(bit))" />
         <VCCodeMacro Name="CMD_SET_PAGE" Value="0xB0" />
-        <VCCodeMacro Name="SERIAL_BUFFER_SIZE" Value="64" />
         <VCCodeMacro Name="B0000101" Value="5" />
         <VCCodeMacro Name="RAWHID_RX_SIZE" Value="64" />
-        <VCCodeMacro Name="OCR2A" Value="OCR2" />
+        <VCCodeMacro Name="COM2A0" Value="COM20" />
         <VCCodeMacro Name="REQUEST_DEVICE" Value="0x00" />
         <VCCodeMacro Name="CDC_ENDPOINT_IN" Value="(CDC_FIRST_ENDPOINT+2)" />
         <VCCodeMacro Name="DEFAULT" Value="0" />
         <VCCodeMacro Name="B00000101" Value="5" />
-        <VCCodeMacro Name="TIMSK2" Value="TIMSK" />
+        <VCCodeMacro Name="OCR2A" Value="OCR2" />
         <VCCodeMacro Name="REQUEST_INTERFACE" Value="0x01" />
         <VCCodeMacro Name="CMD_SET_COLUMN_UPPER" Value="0x10" />
         <VCCodeMacro Name="EXTERNAL" Value="1" />
         <VCCodeMacro Name="B110" Value="6" />
-        <VCCodeMacro Name="OCIE2A" Value="OCIE2" />
+        <VCCodeMacro Name="TXC0" Value="TXC1" />
+        <VCCodeMacro Name="TIMSK2" Value="TIMSK" />
         <VCCodeMacro Name="REQUEST_ENDPOINT" Value="0x02" />
         <VCCodeMacro Name="HID_INTERFACE" Value="(CDC_ACM_INTERFACE + CDC_INTERFACE_COUNT)" />
         <VCCodeMacro Name="EXTERNAL_INT_0" Value="0" />
         <VCCodeMacro Name="CMD_SET_COLUMN_LOWER" Value="0x00" />
         <VCCodeMacro Name="INTERNAL" Value="2" />
         <VCCodeMacro Name="B0110" Value="6" />
-        <VCCodeMacro Name="TIMER2_COMPA_vect" Value="TIMER2_COMP_vect" />
+        <VCCodeMacro Name="OCIE2A" Value="OCIE2" />
         <VCCodeMacro Name="REQUEST_OTHER" Value="0x03" />
         <VCCodeMacro Name="HID_FIRST_ENDPOINT" Value="(CDC_FIRST_ENDPOINT + CDC_ENPOINT_COUNT)" />
         <VCCodeMacro Name="EXTERNAL_INT_1" Value="1" />
         <VCCodeMacro Name="B00110" Value="6" />
-        <VCCodeMacro Name="TIMSK1" Value="TIMSK" />
+        <VCCodeMacro Name="TIMER2_COMPA_vect" Value="TIMER2_COMP_vect" />
         <VCCodeMacro Name="REQUEST_RECIPIENT" Value="0x03" />
         <VCCodeMacro Name="HID_ENDPOINT_INT" Value="(HID_FIRST_ENDPOINT)" />
         <VCCodeMacro Name="EXTERNAL_INT_2" Value="2" />
         <VCCodeMacro Name="CMD_SET_ADC_NORMAL" Value="0xA0" />
         <VCCodeMacro Name="B000110" Value="6" />
+        <VCCodeMacro Name="TIMSK1" Value="TIMSK" />
         <VCCodeMacro Name="EXTERNAL_INT_3" Value="3" />
         <VCCodeMacro Name="CMD_SET_ADC_REVERSE" Value="0xA1" />
         <VCCodeMacro Name="INTERNAL1V1" Value="2" />
         <VCCodeMacro Name="B0000110" Value="6" />
-        <VCCodeMacro Name="MOUSE_LEFT" Value="1" />
         <VCCodeMacro Name="REQUEST_DEVICETOHOST_CLASS_INTERFACE" Value="(REQUEST_DEVICETOHOST + REQUEST_CLASS + REQUEST_INTERFACE)" />
         <VCCodeMacro Name="INTERFACE_COUNT" Value="(MSC_INTERFACE + MSC_INTERFACE_COUNT)" />
         <VCCodeMacro Name="EXTERNAL_INT_4" Value="4" />
         <VCCodeMacro Name="INTERNAL2V56" Value="3" />
         <VCCodeMacro Name="B00000110" Value="6" />
-        <VCCodeMacro Name="MOUSE_RIGHT" Value="2" />
+        <VCCodeMacro Name="MOUSE_LEFT" Value="1" />
         <VCCodeMacro Name="REQUEST_HOSTTODEVICE_CLASS_INTERFACE" Value="(REQUEST_HOSTTODEVICE + REQUEST_CLASS + REQUEST_INTERFACE)" />
         <VCCodeMacro Name="EXTERNAL_INT_5" Value="5" />
         <VCCodeMacro Name="CMD_SET_DISP_NORMAL" Value="0xA6" />
         <VCCodeMacro Name="B111" Value="7" />
         <VCCodeMacro Name="WEAK" Value="__attribute__ ((weak))" />
-        <VCCodeMacro Name="MOUSE_MIDDLE" Value="4" />
+        <VCCodeMacro Name="MOUSE_RIGHT" Value="2" />
         <VCCodeMacro Name="EXTERNAL_INT_6" Value="6" />
         <VCCodeMacro Name="CMD_SET_DISP_REVERSE" Value="0xA7" />
         <VCCodeMacro Name="INTERNAL" Value="3" />
         <VCCodeMacro Name="B0111" Value="7" />
-        <VCCodeMacro Name="MOUSE_ALL" Value="(MOUSE_LEFT | MOUSE_RIGHT | MOUSE_MIDDLE)" />
+        <VCCodeMacro Name="MOUSE_MIDDLE" Value="4" />
         <VCCodeMacro Name="CDC_RX" Value="CDC_ENDPOINT_OUT" />
         <VCCodeMacro Name="EXTERNAL_INT_7" Value="7" />
         <VCCodeMacro Name="B00111" Value="7" />
+        <VCCodeMacro Name="MOUSE_ALL" Value="(MOUSE_LEFT | MOUSE_RIGHT | MOUSE_MIDDLE)" />
         <VCCodeMacro Name="CDC_TX" Value="CDC_ENDPOINT_IN" />
         <VCCodeMacro Name="CMD_SET_ALLPTS_NORMAL" Value="0xA4" />
         <VCCodeMacro Name="DEFAULT" Value="1" />
@@ -279,23 +279,31 @@
         <VCCodeMacro Name="B00000111" Value="7" />
         <VCCodeMacro Name="CDC_SET_CONTROL_LINE_STATE" Value="0x22" />
         <VCCodeMacro Name="CMD_SET_BIAS_7" Value="0xA3" />
+        <VCCodeMacro Name="CMD_MSG_FIELDS" Value="25" />
+        <VCCodeMacro Name="SERIAL_BUFFER_SIZE" Value="16" />
         <VCCodeMacro Name="B1000" Value="8" />
         <VCCodeMacro Name="HID_TX" Value="HID_ENDPOINT_INT" />
         <VCCodeMacro Name="EXTERNAL_NUM_INTERRUPTS" Value="3" />
+        <VCCodeMacro Name="CMD_FIELD_CHARS" Value="21" />
         <VCCodeMacro Name="B01000" Value="8" />
         <VCCodeMacro Name="MSC_RESET" Value="0xFF" />
         <VCCodeMacro Name="CMD_RMW" Value="0xE0" />
+        <VCCodeMacro Name="SERIAL_BUFFER_SIZE" Value="64" />
         <VCCodeMacro Name="B001000" Value="8" />
         <VCCodeMacro Name="MSC_GET_MAX_LUN" Value="0xFE" />
-        <VCCodeMacro Name="EXTERNAL_NUM_INTERRUPTS" Value="2" />
+        <VCCodeMacro Name="EXTERNAL_NUM_INTERRUPTS" Value="4" />
         <VCCodeMacro Name="CMD_RMW_CLEAR" Value="0xEE" />
+        <VCCodeMacro Name="ASCII" Value="0" />
         <VCCodeMacro Name="B0001000" Value="8" />
         <VCCodeMacro Name="IMANUFACTURER" Value="1" />
         <VCCodeMacro Name="CMD_INTERNAL_RESET" Value="0xE2" />
+        <VCCodeMacro Name="BTNIC" Value="1" />
         <VCCodeMacro Name="B00001000" Value="8" />
         <VCCodeMacro Name="HID_GET_REPORT" Value="0x01" />
         <VCCodeMacro Name="IPRODUCT" Value="2" />
+        <VCCodeMacro Name="EXTERNAL_NUM_INTERRUPTS" Value="2" />
         <VCCodeMacro Name="CMD_SET_COM_NORMAL" Value="0xC0" />
+        <VCCodeMacro Name="BINARY" Value="2" />
         <VCCodeMacro Name="B1001" Value="9" />
         <VCCodeMacro Name="HID_GET_IDLE" Value="0x02" />
         <VCCodeMacro Name="CMD_SET_COM_REVERSE" Value="0xC8" />
@@ -328,153 +336,175 @@
         <VCCodeMacro Name="CMD_SET_STATIC_REG" Value="0x0" />
         <VCCodeMacro Name="sq" Value="((x)*(x))" />
         <VCCodeMacro Name="B0001010" Value="10" />
-        <VCCodeMacro Name="DEVICE_CLASS" Value="0x02" />
         <VCCodeMacro Name="USB_DEVICE_DESC_SIZE" Value="18" />
         <VCCodeMacro Name="CMD_SET_BOOSTER_FIRST" Value="0xF8" />
         <VCCodeMacro Name="B00001010" Value="10" />
+        <VCCodeMacro Name="SERIAL_5N1" Value="0x00" />
         <VCCodeMacro Name="USB_CONFIGUARTION_DESC_SIZE" Value="9" />
         <VCCodeMacro Name="CMD_SET_BOOSTER_234" Value="0" />
         <VCCodeMacro Name="interrupts" Value="sei()" />
         <VCCodeMacro Name="B1011" Value="11" />
-        <VCCodeMacro Name="DEVICE_CLASS" Value="0x00" />
+        <VCCodeMacro Name="SERIAL_6N1" Value="0x02" />
         <VCCodeMacro Name="USB_INTERFACE_DESC_SIZE" Value="9" />
         <VCCodeMacro Name="CMD_SET_BOOSTER_5" Value="1" />
         <VCCodeMacro Name="noInterrupts" Value="cli()" />
         <VCCodeMacro Name="B01011" Value="11" />
+        <VCCodeMacro Name="SERIAL_7N1" Value="0x04" />
         <VCCodeMacro Name="USB_ENDPOINT_DESC_SIZE" Value="7" />
         <VCCodeMacro Name="digitalPinToPCMSK" Value="( (((p) &gt;= 10) &amp;&amp; ((p) &lt;= 13)) || (((p) &gt;= 50) &amp;&amp; ((p) &lt;= 53)) ? (&amp;PCMSK0) : ( (((p) &gt;= 62) &amp;&amp; ((p) &lt;= 69)) ? (&amp;PCMSK2) : ((uint8_t *)0) ) )" />
         <VCCodeMacro Name="CMD_SET_BOOSTER_6" Value="3" />
         <VCCodeMacro Name="B001011" Value="11" />
+        <VCCodeMacro Name="SERIAL_8N1" Value="0x06" />
         <VCCodeMacro Name="CMD_NOP" Value="0xE3" />
         <VCCodeMacro Name="clockCyclesPerMicrosecond" Value="( F_CPU / 1000000L )" />
         <VCCodeMacro Name="B0001011" Value="11" />
-        <VCCodeMacro Name="KEY_LEFT_CTRL" Value="0x80" />
+        <VCCodeMacro Name="SERIAL_5N2" Value="0x08" />
         <VCCodeMacro Name="USB_DEVICE_DESCRIPTOR_TYPE" Value="1" />
         <VCCodeMacro Name="CMD_TEST" Value="0xF0" />
         <VCCodeMacro Name="clockCyclesToMicroseconds" Value="( (a) / clockCyclesPerMicrosecond() )" />
         <VCCodeMacro Name="B00001011" Value="11" />
-        <VCCodeMacro Name="KEY_LEFT_SHIFT" Value="0x81" />
+        <VCCodeMacro Name="SERIAL_6N2" Value="0x0A" />
+        <VCCodeMacro Name="KEY_LEFT_CTRL" Value="0x80" />
         <VCCodeMacro Name="USB_CONFIGURATION_DESCRIPTOR_TYPE" Value="2" />
-        <VCCodeMacro Name="CMD_MSG_FIELDS" Value="25" />
         <VCCodeMacro Name="microsecondsToClockCycles" Value="( (a) * clockCyclesPerMicrosecond() )" />
         <VCCodeMacro Name="B1100" Value="12" />
-        <VCCodeMacro Name="KEY_LEFT_ALT" Value="0x82" />
+        <VCCodeMacro Name="SERIAL_7N2" Value="0x0C" />
+        <VCCodeMacro Name="KEY_LEFT_SHIFT" Value="0x81" />
         <VCCodeMacro Name="USB_STRING_DESCRIPTOR_TYPE" Value="3" />
         <VCCodeMacro Name="digitalPinToPCMSKbit" Value="( (((p) &gt;= 10) &amp;&amp; ((p) &lt;= 13)) ? ((p) - 6) : ( ((p) == 50) ? 3 : ( ((p) == 51) ? 2 : ( ((p) == 52) ? 1 : ( ((p) == 53) ? 0 : ( (((p) &gt;= 62) &amp;&amp; ((p) &lt;= 69)) ? ((p) - 62) : 0 ) ) ) ) ) )" />
-        <VCCodeMacro Name="CMD_FIELD_CHARS" Value="21" />
         <VCCodeMacro Name="B01100" Value="12" />
-        <VCCodeMacro Name="KEY_LEFT_GUI" Value="0x83" />
+        <VCCodeMacro Name="SERIAL_8N2" Value="0x0E" />
+        <VCCodeMacro Name="KEY_LEFT_ALT" Value="0x82" />
+        <VCCodeMacro Name="DEVICE_CLASS" Value="0x02" />
         <VCCodeMacro Name="USB_INTERFACE_DESCRIPTOR_TYPE" Value="4" />
         <VCCodeMacro Name="lowByte" Value="((uint8_t) ((w) &amp; 0xff))" />
         <VCCodeMacro Name="B001100" Value="12" />
-        <VCCodeMacro Name="KEY_RIGHT_CTRL" Value="0x84" />
+        <VCCodeMacro Name="SERIAL_5E1" Value="0x20" />
+        <VCCodeMacro Name="KEY_LEFT_GUI" Value="0x83" />
         <VCCodeMacro Name="USB_ENDPOINT_DESCRIPTOR_TYPE" Value="5" />
-        <VCCodeMacro Name="BT_I2C_ADDR" Value="0x10" />
         <VCCodeMacro Name="highByte" Value="((uint8_t) ((w) &gt;&gt; 8))" />
         <VCCodeMacro Name="B0001100" Value="12" />
-        <VCCodeMacro Name="KEY_RIGHT_SHIFT" Value="0x85" />
-        <VCCodeMacro Name="BTNIC_I2C_ADDR" Value="0x11" />
+        <VCCodeMacro Name="SERIAL_6E1" Value="0x22" />
+        <VCCodeMacro Name="KEY_RIGHT_CTRL" Value="0x84" />
+        <VCCodeMacro Name="DEVICE_CLASS" Value="0x00" />
         <VCCodeMacro Name="B00001100" Value="12" />
-        <VCCodeMacro Name="KEY_RIGHT_ALT" Value="0x86" />
+        <VCCodeMacro Name="SERIAL_7E1" Value="0x24" />
+        <VCCodeMacro Name="KEY_RIGHT_SHIFT" Value="0x85" />
         <VCCodeMacro Name="USB_DEVICE_CLASS_COMMUNICATIONS" Value="0x02" />
         <VCCodeMacro Name="bitRead" Value="(((value) &gt;&gt; (bit)) &amp; 0x01)" />
         <VCCodeMacro Name="B1101" Value="13" />
-        <VCCodeMacro Name="KEY_RIGHT_GUI" Value="0x87" />
+        <VCCodeMacro Name="SERIAL_8E1" Value="0x26" />
+        <VCCodeMacro Name="KEY_RIGHT_ALT" Value="0x86" />
         <VCCodeMacro Name="USB_DEVICE_CLASS_HUMAN_INTERFACE" Value="0x03" />
-        <VCCodeMacro Name="ASCII" Value="0" />
         <VCCodeMacro Name="bitSet" Value="((value) |= (1UL &lt;&lt; (bit)))" />
         <VCCodeMacro Name="B01101" Value="13" />
+        <VCCodeMacro Name="SERIAL_5E2" Value="0x28" />
+        <VCCodeMacro Name="KEY_RIGHT_GUI" Value="0x87" />
         <VCCodeMacro Name="USB_DEVICE_CLASS_STORAGE" Value="0x08" />
-        <VCCodeMacro Name="BTNIC" Value="1" />
         <VCCodeMacro Name="bitClear" Value="((value) &amp;= ~(1UL &lt;&lt; (bit)))" />
         <VCCodeMacro Name="B001101" Value="13" />
-        <VCCodeMacro Name="KEY_UP_ARROW" Value="0xDA" />
+        <VCCodeMacro Name="SERIAL_6E2" Value="0x2A" />
         <VCCodeMacro Name="USB_DEVICE_CLASS_VENDOR_SPECIFIC" Value="0xFF" />
-        <VCCodeMacro Name="BINARY" Value="2" />
         <VCCodeMacro Name="bitWrite" Value="(bitvalue ? bitSet(value, bit) : bitClear(value, bit))" />
         <VCCodeMacro Name="B0001101" Value="13" />
-        <VCCodeMacro Name="KEY_DOWN_ARROW" Value="0xD9" />
+        <VCCodeMacro Name="SERIAL_7E2" Value="0x2C" />
+        <VCCodeMacro Name="KEY_UP_ARROW" Value="0xDA" />
         <VCCodeMacro Name="B00001101" Value="13" />
-        <VCCodeMacro Name="KEY_LEFT_ARROW" Value="0xD8" />
+        <VCCodeMacro Name="SERIAL_8E2" Value="0x2E" />
+        <VCCodeMacro Name="KEY_DOWN_ARROW" Value="0xD9" />
         <VCCodeMacro Name="USB_CONFIG_POWERED_MASK" Value="0x40" />
         <VCCodeMacro Name="B1110" Value="14" />
-        <VCCodeMacro Name="KEY_RIGHT_ARROW" Value="0xD7" />
+        <VCCodeMacro Name="SERIAL_5O1" Value="0x30" />
+        <VCCodeMacro Name="KEY_LEFT_ARROW" Value="0xD8" />
         <VCCodeMacro Name="USB_CONFIG_BUS_POWERED" Value="0x80" />
         <VCCodeMacro Name="B01110" Value="14" />
-        <VCCodeMacro Name="KEY_BACKSPACE" Value="0xB2" />
+        <VCCodeMacro Name="SERIAL_6O1" Value="0x32" />
+        <VCCodeMacro Name="KEY_RIGHT_ARROW" Value="0xD7" />
         <VCCodeMacro Name="USB_CONFIG_SELF_POWERED" Value="0xC0" />
         <VCCodeMacro Name="B001110" Value="14" />
-        <VCCodeMacro Name="KEY_TAB" Value="0xB3" />
+        <VCCodeMacro Name="SERIAL_7O1" Value="0x34" />
+        <VCCodeMacro Name="KEY_BACKSPACE" Value="0xB2" />
         <VCCodeMacro Name="USB_CONFIG_REMOTE_WAKEUP" Value="0x20" />
         <VCCodeMacro Name="bit" Value="(1UL &lt;&lt; (b))" />
         <VCCodeMacro Name="B0001110" Value="14" />
+        <VCCodeMacro Name="SERIAL_8O1" Value="0x36" />
         <VCCodeMacro Name="AVAILABLE_TONE_PINS" Value="1" />
-        <VCCodeMacro Name="KEY_RETURN" Value="0xB0" />
+        <VCCodeMacro Name="KEY_TAB" Value="0xB3" />
         <VCCodeMacro Name="B00001110" Value="14" />
-        <VCCodeMacro Name="KEY_ESC" Value="0xB1" />
+        <VCCodeMacro Name="SERIAL_5O2" Value="0x38" />
+        <VCCodeMacro Name="USE_TIMER2" Value="" />
+        <VCCodeMacro Name="KEY_RETURN" Value="0xB0" />
         <VCCodeMacro Name="B1111" Value="15" />
-        <VCCodeMacro Name="KEY_INSERT" Value="0xD1" />
+        <VCCodeMacro Name="SERIAL_6O2" Value="0x3A" />
+        <VCCodeMacro Name="KEY_ESC" Value="0xB1" />
         <VCCodeMacro Name="USB_CONFIG_POWER_MA" Value="((mA)/2)" />
         <VCCodeMacro Name="B01111" Value="15" />
-        <VCCodeMacro Name="KEY_DELETE" Value="0xD4" />
+        <VCCodeMacro Name="SERIAL_7O2" Value="0x3C" />
+        <VCCodeMacro Name="KEY_INSERT" Value="0xD1" />
         <VCCodeMacro Name="B001111" Value="15" />
-        <VCCodeMacro Name="KEY_PAGE_UP" Value="0xD3" />
+        <VCCodeMacro Name="SERIAL_8O2" Value="0x3E" />
+        <VCCodeMacro Name="KEY_DELETE" Value="0xD4" />
         <VCCodeMacro Name="B0001111" Value="15" />
-        <VCCodeMacro Name="KEY_PAGE_DOWN" Value="0xD6" />
+        <VCCodeMacro Name="KEY_PAGE_UP" Value="0xD3" />
         <VCCodeMacro Name="USB_ENDPOINT_DIRECTION_MASK" Value="0x80" />
         <VCCodeMacro Name="B00001111" Value="15" />
-        <VCCodeMacro Name="KEY_HOME" Value="0xD2" />
+        <VCCodeMacro Name="KEY_PAGE_DOWN" Value="0xD6" />
         <VCCodeMacro Name="USB_ENDPOINT_OUT" Value="((addr) | 0x00)" />
         <VCCodeMacro Name="B10000" Value="16" />
+        <VCCodeMacro Name="KEY_HOME" Value="0xD2" />
+        <VCCodeMacro Name="USB_ENDPOINT_IN" Value="((addr) | 0x80)" />
+        <VCCodeMacro Name="B010000" Value="16" />
         <VCCodeMacro Name="AVAILABLE_TONE_PINS" Value="1" />
         <VCCodeMacro Name="KEY_END" Value="0xD5" />
-        <VCCodeMacro Name="USB_ENDPOINT_IN" Value="((addr) | 0x80)" />
-        <VCCodeMacro Name="serialEvent_implemented" Value="" />
-        <VCCodeMacro Name="B010000" Value="16" />
-        <VCCodeMacro Name="KEY_CAPS_LOCK" Value="0xC1" />
         <VCCodeMacro Name="B0010000" Value="16" />
-        <VCCodeMacro Name="KEY_F1" Value="0xC2" />
+        <VCCodeMacro Name="USE_TIMER2" Value="" />
+        <VCCodeMacro Name="KEY_CAPS_LOCK" Value="0xC1" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_MASK" Value="0x03" />
         <VCCodeMacro Name="B00010000" Value="16" />
-        <VCCodeMacro Name="KEY_F2" Value="0xC3" />
+        <VCCodeMacro Name="KEY_F1" Value="0xC2" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_CONTROL" Value="0x00" />
         <VCCodeMacro Name="B10001" Value="17" />
-        <VCCodeMacro Name="KEY_F3" Value="0xC4" />
+        <VCCodeMacro Name="KEY_F2" Value="0xC3" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_ISOCHRONOUS" Value="0x01" />
         <VCCodeMacro Name="B010001" Value="17" />
-        <VCCodeMacro Name="KEY_F4" Value="0xC5" />
+        <VCCodeMacro Name="KEY_F3" Value="0xC4" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_BULK" Value="0x02" />
         <VCCodeMacro Name="B0010001" Value="17" />
-        <VCCodeMacro Name="KEY_F5" Value="0xC6" />
+        <VCCodeMacro Name="KEY_F4" Value="0xC5" />
         <VCCodeMacro Name="USB_ENDPOINT_TYPE_INTERRUPT" Value="0x03" />
         <VCCodeMacro Name="B00010001" Value="17" />
-        <VCCodeMacro Name="AVAILABLE_TONE_PINS" Value="1" />
-        <VCCodeMacro Name="KEY_F6" Value="0xC7" />
+        <VCCodeMacro Name="KEY_F5" Value="0xC6" />
         <VCCodeMacro Name="B10010" Value="18" />
-        <VCCodeMacro Name="KEY_F7" Value="0xC8" />
+        <VCCodeMacro Name="KEY_F6" Value="0xC7" />
         <VCCodeMacro Name="TOBYTES" Value="((x) &amp; 0xFF),(((x) &gt;&gt; 8) &amp; 0xFF)" />
         <VCCodeMacro Name="B010010" Value="18" />
-        <VCCodeMacro Name="KEY_F8" Value="0xC9" />
+        <VCCodeMacro Name="AVAILABLE_TONE_PINS" Value="1" />
+        <VCCodeMacro Name="KEY_F7" Value="0xC8" />
         <VCCodeMacro Name="B0010010" Value="18" />
-        <VCCodeMacro Name="KEY_F9" Value="0xCA" />
+        <VCCodeMacro Name="USE_TIMER3" Value="" />
+        <VCCodeMacro Name="KEY_F8" Value="0xC9" />
         <VCCodeMacro Name="CDC_V1_10" Value="0x0110" />
         <VCCodeMacro Name="B00010010" Value="18" />
-        <VCCodeMacro Name="KEY_F10" Value="0xCB" />
+        <VCCodeMacro Name="KEY_F9" Value="0xCA" />
         <VCCodeMacro Name="CDC_COMMUNICATION_INTERFACE_CLASS" Value="0x02" />
         <VCCodeMacro Name="B10011" Value="19" />
-        <VCCodeMacro Name="KEY_F11" Value="0xCC" />
+        <VCCodeMacro Name="KEY_F10" Value="0xCB" />
         <VCCodeMacro Name="B010011" Value="19" />
-        <VCCodeMacro Name="KEY_F12" Value="0xCD" />
+        <VCCodeMacro Name="KEY_F11" Value="0xCC" />
         <VCCodeMacro Name="CDC_CALL_MANAGEMENT" Value="0x01" />
         <VCCodeMacro Name="B0010011" Value="19" />
+        <VCCodeMacro Name="KEY_F12" Value="0xCD" />
         <VCCodeMacro Name="CDC_ABSTRACT_CONTROL_MODEL" Value="0x02" />
         <VCCodeMacro Name="B00010011" Value="19" />
         <VCCodeMacro Name="CDC_HEADER" Value="0x00" />
         <VCCodeMacro Name="B10100" Value="20" />
         <VCCodeMacro Name="CDC_ABSTRACT_CONTROL_MANAGEMENT" Value="0x02" />
+        <VCCodeMacro Name="serialEvent_implemented" Value="" />
         <VCCodeMacro Name="B010100" Value="20" />
+        <VCCodeMacro Name="AVAILABLE_TONE_PINS" Value="1" />
         <VCCodeMacro Name="CDC_UNION" Value="0x06" />
         <VCCodeMacro Name="B0010100" Value="20" />
+        <VCCodeMacro Name="USE_TIMER2" Value="" />
         <VCCodeMacro Name="CDC_CS_INTERFACE" Value="0x24" />
         <VCCodeMacro Name="B00010100" Value="20" />
         <VCCodeMacro Name="CDC_CS_ENDPOINT" Value="0x25" />
@@ -494,7 +524,6 @@
         <VCCodeMacro Name="B00010110" Value="22" />
         <VCCodeMacro Name="HID_PHYSICAL_DESCRIPTOR_TYPE" Value="0x23" />
         <VCCodeMacro Name="B10111" Value="23" />
-        <VCCodeMacro Name="serialEvent1_implemented" Value="" />
         <VCCodeMacro Name="B010111" Value="23" />
         <VCCodeMacro Name="B0010111" Value="23" />
         <VCCodeMacro Name="B00010111" Value="23" />
@@ -508,7 +537,6 @@
         <VCCodeMacro Name="B00011001" Value="25" />
         <VCCodeMacro Name="B11010" Value="26" />
         <VCCodeMacro Name="B011010" Value="26" />
-        <VCCodeMacro Name="serialEvent2_implemented" Value="" />
         <VCCodeMacro Name="B0011010" Value="26" />
         <VCCodeMacro Name="digitalPinToPort" Value="( pgm_read_byte( digital_pin_to_port_PGM + (P) ) )" />
         <VCCodeMacro Name="B00011010" Value="26" />
@@ -531,8 +559,8 @@
         <VCCodeMacro Name="NOT_A_PORT" Value="0" />
         <VCCodeMacro Name="B11101" Value="29" />
         <VCCodeMacro Name="B011101" Value="29" />
+        <VCCodeMacro Name="serialEvent1_implemented" Value="" />
         <VCCodeMacro Name="B0011101" Value="29" />
-        <VCCodeMacro Name="serialEvent3_implemented" Value="" />
         <VCCodeMacro Name="PA" Value="1" />
         <VCCodeMacro Name="B00011101" Value="29" />
         <VCCodeMacro Name="PB" Value="2" />
@@ -563,6 +591,7 @@
         <VCCodeMacro Name="B00100001" Value="33" />
         <VCCodeMacro Name="TIMER0B" Value="2" />
         <VCCodeMacro Name="B100010" Value="34" />
+        <VCCodeMacro Name="serialEvent2_implemented" Value="" />
         <VCCodeMacro Name="TIMER1A" Value="3" />
         <VCCodeMacro Name="B0100010" Value="34" />
         <VCCodeMacro Name="TIMER1B" Value="4" />
@@ -586,18 +615,19 @@
         <VCCodeMacro Name="B00100101" Value="37" />
         <VCCodeMacro Name="TIMER4C" Value="13" />
         <VCCodeMacro Name="B100110" Value="38" />
-        <VCCodeMacro Name="TRANSFER_PGM" Value="0x80" />
         <VCCodeMacro Name="TIMER4D" Value="14" />
         <VCCodeMacro Name="B0100110" Value="38" />
-        <VCCodeMacro Name="TRANSFER_RELEASE" Value="0x40" />
+        <VCCodeMacro Name="TRANSFER_PGM" Value="0x80" />
         <VCCodeMacro Name="TIMER5A" Value="15" />
         <VCCodeMacro Name="B00100110" Value="38" />
-        <VCCodeMacro Name="TRANSFER_ZERO" Value="0x20" />
+        <VCCodeMacro Name="TRANSFER_RELEASE" Value="0x40" />
         <VCCodeMacro Name="TIMER5B" Value="16" />
         <VCCodeMacro Name="B100111" Value="39" />
+        <VCCodeMacro Name="TRANSFER_ZERO" Value="0x20" />
         <VCCodeMacro Name="TIMER5C" Value="17" />
         <VCCodeMacro Name="B0100111" Value="39" />
         <VCCodeMacro Name="B00100111" Value="39" />
+        <VCCodeMacro Name="serialEvent3_implemented" Value="" />
         <VCCodeMacro Name="B101000" Value="40" />
         <VCCodeMacro Name="B0101000" Value="40" />
         <VCCodeMacro Name="B00101000" Value="40" />
@@ -616,7 +646,6 @@
         <VCCodeMacro Name="B0101100" Value="44" />
         <VCCodeMacro Name="B00101100" Value="44" />
         <VCCodeMacro Name="B101101" Value="45" />
-        <VCCodeMacro Name="USB_RECV_TIMEOUT" Value="" />
         <VCCodeMacro Name="B0101101" Value="45" />
         <VCCodeMacro Name="B00101101" Value="45" />
         <VCCodeMacro Name="B101110" Value="46" />
@@ -625,6 +654,7 @@
         <VCCodeMacro Name="B101111" Value="47" />
         <VCCodeMacro Name="B0101111" Value="47" />
         <VCCodeMacro Name="B00101111" Value="47" />
+        <VCCodeMacro Name="USB_RECV_TIMEOUT" Value="" />
         <VCCodeMacro Name="B110000" Value="48" />
         <VCCodeMacro Name="B0110000" Value="48" />
         <VCCodeMacro Name="B00110000" Value="48" />
@@ -753,9 +783,7 @@
         <VCCodeMacro Name="B1100010" Value="98" />
         <VCCodeMacro Name="B01100010" Value="98" />
         <VCCodeMacro Name="B1100011" Value="99" />
-        <VCCodeMacro Name="EP_SINGLE_64" Value="0x32" />
         <VCCodeMacro Name="B01100011" Value="99" />
-        <VCCodeMacro Name="EP_DOUBLE_64" Value="0x36" />
         <VCCodeMacro Name="B1100100" Value="100" />
         <VCCodeMacro Name="B01100100" Value="100" />
         <VCCodeMacro Name="B1100101" Value="101" />
@@ -763,7 +791,9 @@
         <VCCodeMacro Name="B1100110" Value="102" />
         <VCCodeMacro Name="B01100110" Value="102" />
         <VCCodeMacro Name="B1100111" Value="103" />
+        <VCCodeMacro Name="EP_SINGLE_64" Value="0x32" />
         <VCCodeMacro Name="B01100111" Value="103" />
+        <VCCodeMacro Name="EP_DOUBLE_64" Value="0x36" />
         <VCCodeMacro Name="B1101000" Value="104" />
         <VCCodeMacro Name="B01101000" Value="104" />
         <VCCodeMacro Name="B1101001" Value="105" />
@@ -942,7 +972,7 @@
         <VCCodeMacro Name="B11111111" Value="255" />
       </VCCodeMacros>
       <VCCodeVariables>
-        <VCCodeVariable Name="tempPin" />
+        <VCCodeVariable Name="checkfloat" />
       </VCCodeVariables>
     </VCCodeModel>
   </Program>
