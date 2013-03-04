@@ -1,5 +1,5 @@
 //Board = Arduino Mega (ATmega1280)
-#define ARDUINO 103
+#define ARDUINO 101
 #define __AVR_ATmega1280__
 #define F_CPU 16000000L
 #define __AVR__
@@ -38,10 +38,8 @@ void formatTime(int hours, int mins, int secs, char time[]);
 void formatTimeSeconds(long secs, char time[]);
 void manualmode();
 
-#include "C:\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" 
-#include "C:\arduino-1.0.1\hardware\arduino\cores\arduino\arduino.h"
-#include "C:\CODE\Brew\Main Files\myBrewProject.ino"
-#include "C:\CODE\Brew\Main Files\Globals.h"
-#include "C:\CODE\Brew\Main Files\WARP.ino"
-#include "C:\CODE\Brew\Main Files\setup.ino"
-#include "C:\CODE\Brew\Main Files\timer.ino"
+#include "D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" 
+#include "D:\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\arduino.h"
+#include "D:\CODING\Arduino\Brew\Main Files\myBrewProject.ino"
+#include "D:\CODING\Arduino\Brew\Main Files\Globals.h"
+#include "D:\CODING\Arduino\Brew\Main Files\timer.ino"

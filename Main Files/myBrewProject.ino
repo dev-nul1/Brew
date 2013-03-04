@@ -116,23 +116,38 @@ void updateMashDisplay(int const temp)
 
 void controlHeating(int temp)
 {
-	if (temp > 20 && temp <= 24) {
-		glcd.drawstring(0, 2, "     ELEMENT ON!");
+	if (temp > HEAT_UP_THRESHOLD && temp <= BOIL_THRESHOLD )// Thresholds can be found in GLOBAL_H				
+	{
+		glcd.drawstring(0, 2, "     ELEMENT ON!");				
 		glcd.drawstring(0, 3, "  STARTING TO BOIL!");
 		
 		digitalWrite(PinElementHlt, HIGH); 
 		glcd.display();
 	}
-	else if (temp > 25) {
+	else if (temp > BOIL_THRESHOLD) {
 		delay(50);
-	    glcd.drawstring(1, 4, " It is too hot!");
+	    glcd.drawstring(0, 2, "      BOILING! ");
+		glcd.drawstring(0, 3, "   START SSR FLIP");
+		//Start PMW control to force screen to light up as RED LED
 	    glcd.display(); 
-		digitalWrite(PinElementHlt, LOW); 
+			if(temp >= BOIL_THRESHOLD)
+			{
+				digitalWrite(PinElementHlt, LOW); 
+				delay(1000);
+				digitalWrite(PinElementHlt, HIGH); 
+				delay(1000);
+				if(temp < 27)
+				{
+					return;
+				}
+			}
 	}
-	else if(temp <=19){
+	else if(temp <= LOW
+){
 		delay(50);
-	   glcd.drawstring(1, 4, " It is too cold!");
-	   glcd.display();
+		glcd.drawstring(1, 4, " It is too cold!");
+		glcd.display();
+
 	}
 	/*else{
 		glcd.clear();
@@ -143,7 +158,7 @@ void controlHeating(int temp)
 void TempTime()
 {
 	int temp1 = tempRead(tempPin);
-	//int temp2 = tempread(tempPin1);
+	//int temp2 = tempread(tempPin1);  add me if you have two temp readings ready
 	updateHLTDisplay(temp1);				// read the temp from the boil kettle
 	//updateMashDisplay1(temp2);
 
@@ -166,8 +181,8 @@ void TempTime()
       delay(300);
       Serial.println(total_time);
       last_total_time==total_time;
-	  glcd.drawstring(0, 5, "<>TIME:");
-	  glcd.drawstring(50, 5, total_time);
+	  glcd.drawstring(0, 7, " RUNTIME:");
+	  glcd.drawstring(60, 7, total_time);
 	  glcd.display();
     }
 }
@@ -180,7 +195,8 @@ void TempTime()
 void StateMachine()
 {
 	int ok;
-	switch(ok)
+	ok = true;
+	switch(ok == true)
 	{
 	case IDLE:
 		Serial.println("IDLE waiting command");
@@ -199,7 +215,7 @@ byte incomingByte = 0;
 
 void loop() 
 {
-	//manualmode();
+	manualmode();
 	while (1) 
 	{
 		if (Serial.available() > 0)

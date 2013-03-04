@@ -18,6 +18,16 @@ typedef enum {
 //Brew Steps PS 
 // 
 typedef enum  {
+	BOIL_THRESHOLD = 27,
+	HEAT_UP_THRESHOLD = 20,
+	LOW_THRESHOLD = 19
+}thresholds;
+
+
+//
+//Brew Steps PS 
+// 
+typedef enum  {
 	IDLE,
 	MANUALMODE
 }brewSteps;
@@ -69,4 +79,3 @@ typedef enum {
 //} ControlState;
 
 #endif
-

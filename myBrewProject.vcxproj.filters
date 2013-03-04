@@ -29,8 +29,6 @@
     </None>
     <None Include="Main Files\myBrewProject.ino" />
     <None Include="Main Files\timer.ino" />
-    <None Include="Main Files\WARP.ino" />
-    <None Include="Main Files\setup.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h">
@@ -104,21 +102,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\CDC.cpp">
-      <Filter>_core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\HardwareSerial.cpp">
-      <Filter>_core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\HID.cpp">
-      <Filter>_core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\IPAddress.cpp">
-      <Filter>_core</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\main.cpp">
-      <Filter>_core</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\new.cpp">
       <Filter>_core</Filter>
     </ClCompile>
