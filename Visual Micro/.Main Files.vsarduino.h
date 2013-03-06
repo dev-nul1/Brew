@@ -24,6 +24,10 @@
 typedef unsigned char byte;
 extern "C" void __cxa_pure_virtual() {}
 
+void setupmenu();
+void formatTime(int hours, int mins, int secs, char time[]);
+void formatTimeSeconds(long secs, char time[]);
+void manualmode();
 //already defined in arduno.h
 int tempRead(int tempPinNum);
 void updateHLTDisplay(int const temp);
@@ -32,14 +36,10 @@ void controlHeating(int temp);
 void TempTime();
 void StateMachine();
 //already defined in arduno.h
-void setupmenu();
-int freeRam(void);
-void formatTime(int hours, int mins, int secs, char time[]);
-void formatTimeSeconds(long secs, char time[]);
-void manualmode();
 
 #include "D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" 
 #include "D:\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\arduino.h"
 #include "D:\CODING\Arduino\Brew\Main Files\myBrewProject.ino"
 #include "D:\CODING\Arduino\Brew\Main Files\Globals.h"
-#include "D:\CODING\Arduino\Brew\Main Files\timer.ino"
+#include "D:\CODING\Arduino\Brew\Main Files\brewCore.cpp"
+#include "D:\CODING\Arduino\Brew\Main Files\brewCore.h"

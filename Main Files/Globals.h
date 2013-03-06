@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <stdint.h>
-
 #define BAD_TEMP -32768
 
 //Timers

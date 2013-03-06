@@ -1,15 +1,17 @@
+#include "Globals.h"
 #include "ST7565.h"
 #include "stdio.h"
 #include <EEPROM.h>
-#include "Globals.h"
+#include "brewCore.h"
 
 //
 // LETS SEE IF I CAN GET AN ARDUINO TO HELP THE BREW PROCESS.
-//
+// ISSUES WITH VAX??? http://forums.wholetomato.com/forum/topic.asp?TOPIC_ID=11091
 
 //
 //BASICS
 //
+
 const byte tempPin	= 0;	
 const byte tempPin1 = 1;				// TEMP SENSOR PIN #
 const byte PinElementHlt = 10;			// SSR FOR HLT/KETTLE ELEMENT
@@ -18,6 +20,10 @@ byte buttonPress = 1;
 
 int incoming = 0;						// placeholder for serial read stuff 
 
+//
+//	Classes
+//
+BrewCoreClass brewCore;
 
 // the LCD back light is connected up to a pin so you can turn it on & off
 //#define BACKLIGHT_LED 11
@@ -32,6 +38,7 @@ ST7565 glcd(9, 8, 7, 6, 5);			// WE NEED TO SETUP THE BACKLIGHT AND SET A COLOR.
 #define LOGO16_GLCD_WIDTH  16 
 // the buffer for the image display
 extern uint8_t st7565_buffer[1024];
+
 
 const char versionnumber[5] = "0.3";     // current build version
 
@@ -57,15 +64,68 @@ int timercalculated = 0;	// has the timer for a timed step been set (initially =
 
 int temparray[16] = {
 	0,1,1,2,3,3,4,4,5,6,6,7,8,8,9,9}; // temperature lookup array
+
+byte checkfloat;
+
+
+void setupmenu()
+{
+	Serial.println("OK HERE I AM AT SETUP");
+	return;
+}
+
+
+void formatTime(int hours, int mins, int secs, char time[]) { // format a time to a string from hours, mins, secs
+	// PW 20090203 Added support for overflow of mins and secs
+	if (secs>60) {
+		secs=secs-60;
+		mins++;
+	}
+	if (mins>60) {
+		mins=mins-60;
+		hours++;
+	}
+	time[2]=':';
+	time[5]=':';
+	time[0]=48+(hours / 10);
+	time[1]=48+(hours % 10);
+	time[3]=48+(mins / 10);
+	time[4]=48+(mins % 10);
+	time[6]=48+(secs / 10);
+	time[7]=48+(secs % 10);
+}
+
+
+void formatTimeSeconds(long secs, char time[])			// format a time to a string from seconds only
+{		
+	int tempsecs = secs % 60;
+	int tempmins = (secs / 60) % 60;
+	int temphours = secs  / 3600;
+	formatTime(temphours,tempmins,tempsecs,time);
+
+}
+
+
+void manualmode(){
+	checkfloat  = EEPROM.read(200);
+	Serial.print(checkfloat, DEC); // print value on screen
+
+	Serial.println("Starting Manual Mode");
+	while (1) 
+	{
+		TempTime();
+	}
+}
 //
 // the setup routine runs once when you press reset:
 //
+// 
 void setup() {                
 	
 	pinMode(PinElementHlt, OUTPUT);						// sets the digital pin as output
 
-	Serial.println(freeRam());							// display free ram
-  
+	//Serial.println(freeRam());							// display free ram
+	
 	glcd.st7565_init();									//Initialize the LCD
 	glcd.st7565_command(CMD_DISPLAY_ON);
 	glcd.st7565_command(CMD_SET_ALLPTS_NORMAL);
@@ -141,6 +201,7 @@ void controlHeating(int temp)
 					return;
 				}
 			}
+			
 	}
 	else if(temp <= LOW
 ){
@@ -215,6 +276,8 @@ byte incomingByte = 0;
 
 void loop() 
 {
+	brewCore.test();
+
 	manualmode();
 	while (1) 
 	{
