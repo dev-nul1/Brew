@@ -28,7 +28,6 @@
       <Filter>Header Files</Filter>
     </None>
     <None Include="Main Files\myBrewProject.ino" />
-    <None Include="Main Files\timer.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h">
@@ -100,6 +99,9 @@
     <ClInclude Include="Visual Micro\.Main Files.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Main Files\brewCore.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\new.cpp">
@@ -146,6 +148,9 @@
     </ClCompile>
     <ClCompile Include="..\..\arduino-1.0.1\libraries\ST7565\ST7565.cpp">
       <Filter>_libraries\ST7565</Filter>
+    </ClCompile>
+    <ClCompile Include="Main Files\brewCore.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

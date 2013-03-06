@@ -3,7 +3,6 @@
 
 #include <stdlib.h>
 #include <stdint.h>
-
 #define BAD_TEMP -32768
 
 //Timers
@@ -13,20 +12,18 @@ typedef enum {
 	TIMER_NUMTIMERS
 } timers;
 
-
 //
-//Brew Steps PS 
-// 
+//Brew Steps PS
+//
 typedef enum  {
 	BOIL_THRESHOLD = 27,
 	HEAT_UP_THRESHOLD = 20,
 	LOW_THRESHOLD = 19
 }thresholds;
 
-
 //
-//Brew Steps PS 
-// 
+//Brew Steps PS
+//
 typedef enum  {
 	IDLE,
 	MANUALMODE
@@ -53,7 +50,6 @@ typedef enum {
 	BREWSTEP_STEPCOUNT
 } brewStepsOLD;
 
-
 //Events
 typedef enum {
 	EVENT_STEPINIT,
@@ -64,12 +60,12 @@ typedef enum {
 } events;
 
 //Log Constants
-#define CMD_MSG_FIELDS 25
-#define CMD_FIELD_CHARS 21
+//#define CMD_MSG_FIELDS 25
+//#define CMD_FIELD_CHARS 21
 
-#define ASCII	0
-#define BTNIC	1
-#define BINARY	2
+//#define ASCII		0
+//#define BTNIC		1
+//#define BINARY	2
 
 //typedef enum {
 //	CONTROLSTATE_OFF,
