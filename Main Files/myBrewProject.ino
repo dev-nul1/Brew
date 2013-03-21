@@ -7,18 +7,20 @@
 //
 // LETS SEE IF I CAN GET AN ARDUINO TO HELP THE BREW PROCESS.
 // ISSUES WITH VAX??? http://forums.wholetomato.com/forum/topic.asp?TOPIC_ID=11091
+const char versionnumber[5] = "0.5";     // current build version
 
 //
-//BASICS
+// Arduino pins (i/o)
 //
+int tester = 55;
 
-const byte tempPin	= 0;	
+const byte tempPin	= 0;
 const byte tempPin1 = 1;				// TEMP SENSOR PIN #
 const byte PinElementHlt = 10;			// SSR FOR HLT/KETTLE ELEMENT
 
-byte buttonPress = 1;
+byte buttonPress = 1;					// We need a switch or button...
 
-int incoming = 0;						// placeholder for serial read stuff 
+int incoming = 0;						// placeholder for serial read stuff
 
 //
 //	Classes
@@ -27,20 +29,19 @@ BrewCoreClass brewCore;
 
 // the LCD back light is connected up to a pin so you can turn it on & off
 //#define BACKLIGHT_LED 11
+// Learn how to control via the PMW the different LED's.  IE FLASH, COLOR DEPENDANT ON MODE, ETC.
 ST7565 glcd(9, 8, 7, 6, 5);			// WE NEED TO SETUP THE BACKLIGHT AND SET A COLOR.
-									// pin 9 - Serial data out (SID)
-									// pin 8 - Serial clock out (SCLK)
-									// pin 7 - Data/Command select (RS or A0)
-									// pin 6 - LCD reset (RST)
-									// pin 5 - LCD chip select (CS)
+// pin 9 - Serial data out (SID)
+// pin 8 - Serial clock out (SCLK)
+// pin 7 - Data/Command select (RS or A0)
+// pin 6 - LCD reset (RST)
+// pin 5 - LCD chip select (CS)
 
-#define LOGO16_GLCD_HEIGHT 16 
-#define LOGO16_GLCD_WIDTH  16 
+#define LOGO16_GLCD_HEIGHT 16
+#define LOGO16_GLCD_WIDTH  16
 // the buffer for the image display
 extern uint8_t st7565_buffer[1024];
 
-
-const char versionnumber[5] = "0.3";     // current build version
 
 // TIME STUFF
 //
@@ -57,7 +58,6 @@ unsigned long cyclecount = 0;
 char steptotaltime[9] = "  :  :  ";
 char temptime[9] = "  :  :  ";
 
-
 long stepelapsed = 0;		// number of milliseconds remaining
 int stepelapsedsecs = 0;	// number of seconds remaining
 int timercalculated = 0;	// has the timer for a timed step been set (initially = false)
@@ -67,13 +67,11 @@ int temparray[16] = {
 
 byte checkfloat;
 
-
 void setupmenu()
 {
-	Serial.println("OK HERE I AM AT SETUP");
+	Serial.println("RUN: SETUP MENU");
 	return;
 }
-
 
 void formatTime(int hours, int mins, int secs, char time[]) { // format a time to a string from hours, mins, secs
 	// PW 20090203 Added support for overflow of mins and secs
@@ -95,23 +93,20 @@ void formatTime(int hours, int mins, int secs, char time[]) { // format a time t
 	time[7]=48+(secs % 10);
 }
 
-
 void formatTimeSeconds(long secs, char time[])			// format a time to a string from seconds only
-{		
+{
 	int tempsecs = secs % 60;
 	int tempmins = (secs / 60) % 60;
 	int temphours = secs  / 3600;
 	formatTime(temphours,tempmins,tempsecs,time);
-
 }
-
 
 void manualmode(){
 	checkfloat  = EEPROM.read(200);
 	Serial.print(checkfloat, DEC); // print value on screen
 
 	Serial.println("Starting Manual Mode");
-	while (1) 
+	while (1)
 	{
 		TempTime();
 	}
@@ -119,13 +114,12 @@ void manualmode(){
 //
 // the setup routine runs once when you press reset:
 //
-// 
-void setup() {                
-	
+//
+void setup() {
 	pinMode(PinElementHlt, OUTPUT);						// sets the digital pin as output
 
 	//Serial.println(freeRam());							// display free ram
-	
+
 	glcd.st7565_init();									//Initialize the LCD
 	glcd.st7565_command(CMD_DISPLAY_ON);
 	glcd.st7565_command(CMD_SET_ALLPTS_NORMAL);
@@ -138,23 +132,21 @@ void setup() {
 	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
 }
 
-
 int tempRead(int tempPinNum)
 {
-	float tempC;							// TEMP SENSOR 
-  	tempC = analogRead(tempPinNum);			//read the value from the sensor
+	float tempC;							// TEMP SENSOR
+	tempC = analogRead(tempPinNum);			//read the value from the sensor
 	tempC = (5.0 * tempC * 100.0)/1024.0;	//convert the analog data to temperature
 
 	//sprintf(tempMsg,"Current Temp: %d", (int)tempC);
 
 	Serial.print("Current Ambient Temp:");
 	Serial.println((int)tempC);             //send the data to the computer
-											// now convert to Fahrenheit
-											//float temperatureF = (tempC * 9.0 / 5.0) + 32.0;
-											//Serial.print(temperatureF); Serial.println(" degrees F");
+	// now convert to Fahrenheit
+	//float temperatureF = (tempC * 9.0 / 5.0) + 32.0;
+	//Serial.print(temperatureF); Serial.println(" degrees F");
 	return tempC;
 }
-
 
 void updateHLTDisplay(int const temp)
 {
@@ -164,7 +156,6 @@ void updateHLTDisplay(int const temp)
 	glcd.display();
 }
 
-
 void updateMashDisplay(int const temp)
 {
 	char tempMsg[32];						//Array to hold our data for the temperature conversions and print it to strings
@@ -173,48 +164,40 @@ void updateMashDisplay(int const temp)
 	glcd.display();
 }
 
-
 void controlHeating(int temp)
 {
-	if (temp > HEAT_UP_THRESHOLD && temp <= BOIL_THRESHOLD )// Thresholds can be found in GLOBAL_H				
+	if (temp > HEAT_UP_THRESHOLD && temp <= BOIL_THRESHOLD )	// Thresholds can be found in GLOBAL_H
 	{
-		glcd.drawstring(0, 2, "     ELEMENT ON!");				
+		glcd.drawstring(0, 2, "     ELEMENT ON!");
 		glcd.drawstring(0, 3, "  STARTING TO BOIL!");
-		
-		digitalWrite(PinElementHlt, HIGH); 
+		digitalWrite(PinElementHlt, HIGH);
 		glcd.display();
 	}
 	else if (temp > BOIL_THRESHOLD) {
 		delay(50);
-	    glcd.drawstring(0, 2, "      BOILING! ");
+		glcd.drawstring(0, 2, "      BOILING! ");
 		glcd.drawstring(0, 3, "   START SSR FLIP");
 		//Start PMW control to force screen to light up as RED LED
-	    glcd.display(); 
-			if(temp >= BOIL_THRESHOLD)
+		glcd.display();
+		if(temp >= BOIL_THRESHOLD)
+		{
+			digitalWrite(PinElementHlt, LOW);
+			delay(1000);
+			digitalWrite(PinElementHlt, HIGH);
+			delay(1000);
+			if(temp < 27)
 			{
-				digitalWrite(PinElementHlt, LOW); 
-				delay(1000);
-				digitalWrite(PinElementHlt, HIGH); 
-				delay(1000);
-				if(temp < 27)
-				{
-					return;
-				}
+				return;
 			}
-			
+		}
 	}
-	else if(temp <= LOW
-){
+	else if(temp <= LOW)
+	{
 		delay(50);
 		glcd.drawstring(1, 4, " It is too cold!");
 		glcd.display();
-
 	}
-	/*else{
-		glcd.clear();
-	}*/
 }
-
 
 void TempTime()
 {
@@ -223,31 +206,30 @@ void TempTime()
 	updateHLTDisplay(temp1);				// read the temp from the boil kettle
 	//updateMashDisplay1(temp2);
 
-	delay(100);   
+	delay(100);
 	controlHeating(temp1);
 
 	//
 	// Might want to embed this into another function..
 	//
 	while(millis() - previous_millis_value >= 1000)
-    {
-      cumulativeSeconds++;
-      previous_millis_value += 1000;
-    }
-    formatTimeSeconds(cumulativeSeconds,total_time);
+	{
+		cumulativeSeconds++;
+		previous_millis_value += 1000;
+	}
+	formatTimeSeconds(cumulativeSeconds,total_time);
 
-    if (total_time!=last_total_time)  // only update if changed to prevent flooding
-    {
-      Serial.print("Running time: ");              
-      delay(300);
-      Serial.println(total_time);
-      last_total_time==total_time;
-	  glcd.drawstring(0, 7, " RUNTIME:");
-	  glcd.drawstring(60, 7, total_time);
-	  glcd.display();
-    }
+	if (total_time!=last_total_time)  // only update if changed to prevent flooding
+	{
+		Serial.print("Running time: ");
+		delay(300);
+		Serial.println(total_time);
+		last_total_time==total_time;
+		glcd.drawstring(0, 7, " RUNTIME:");
+		glcd.drawstring(60, 7, total_time);
+		glcd.display();
+	}
 }
-
 
 //
 //	This should at some point cause the device to trigger states like, mash in, boil mode, idle... etc.
@@ -269,37 +251,35 @@ void StateMachine()
 	}
 }
 
-
 //button1 = Button(2);       // Button 1
 
 byte incomingByte = 0;
 
-void loop() 
+void loop()
 {
 	brewCore.test();
-
-	manualmode();
-	while (1) 
+	//StateMachine();
+	//manualmode();
+	while (1)
 	{
 		if (Serial.available() > 0)
 		{
-		  incoming = Serial.read();
+			incoming = Serial.read();
 		}
 		else
 		{
-		  incoming = 1;
+			incoming = 1;
 		}
 		//if ((button1) || ((char)incoming == '1'))
 		if (((char)incoming == '1'))
 		{
-		  delay(500);     
-		  manualmode();
+			delay(500);
+			manualmode();
 		}
 		if (((char)incoming == '2'))
 		{
-		  delay(500);     
-		  setupmenu();
+			delay(500);
+			setupmenu();
 		}
 	}
-	//StateMachine();
 }

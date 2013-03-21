@@ -12,6 +12,6 @@ Semi automated
 
 Version releases
 ===============
-
-0.2 timer, lcd, temp, state machine.
-0.1 basic input/output
+*	0.5 restructure, using c++ file structure, general fixes.
+*	0.2 timer, lcd, temp, state machine.
+*	0.1 basic input/output

@@ -70,9 +70,6 @@
     <None Include="Main Files\myBrewProject.ino">
       <FileType>CppCode</FileType>
     </None>
-    <None Include="Main Files\timer.ino">
-      <FileType>CppCode</FileType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h" />
@@ -95,6 +92,9 @@
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\WString.h" />
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" />
     <ClInclude Include="..\..\arduino-1.0.1\libraries\ST7565\ST7565.h" />
+    <ClInclude Include="Main Files\brewCore.h">
+      <FileType>CppCode</FileType>
+    </ClInclude>
     <ClInclude Include="Main Files\Globals.h" />
     <ClInclude Include="Visual Micro\.Main Files.vsarduino.h" />
     <ClInclude Include="Visual Micro\.myBrewProject.vsarduino.h" />
@@ -116,6 +116,7 @@
     <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\WString.cpp" />
     <ClCompile Include="..\..\arduino-1.0.1\libraries\ST7565\glcdfont.c" />
     <ClCompile Include="..\..\arduino-1.0.1\libraries\ST7565\ST7565.cpp" />
+    <ClCompile Include="Main Files\brewCore.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System" />
