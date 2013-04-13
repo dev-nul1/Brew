@@ -18,6 +18,8 @@ public:
 	int freeRam(void);
 	void test();
 
+	void potAdjustBoil();
+
 private:
 };
 

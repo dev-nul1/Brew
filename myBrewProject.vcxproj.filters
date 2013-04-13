@@ -102,6 +102,9 @@
     <ClInclude Include="Main Files\brewCore.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="timerOne\TimerOne.h">
+      <Filter>_libraries</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\new.cpp">
@@ -152,5 +155,13 @@
     <ClCompile Include="Main Files\brewCore.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="timerOne\TimerOne.cpp">
+      <Filter>_libraries</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="timerOne\keywords.txt">
+      <Filter>_libraries</Filter>
+    </Text>
   </ItemGroup>
 </Project>

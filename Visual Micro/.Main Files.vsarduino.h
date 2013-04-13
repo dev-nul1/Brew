@@ -24,16 +24,17 @@
 typedef unsigned char byte;
 extern "C" void __cxa_pure_virtual() {}
 
-void setupmenu();
 void formatTime(int hours, int mins, int secs, char time[]);
 void formatTimeSeconds(long secs, char time[]);
-void manualmode();
 //already defined in arduno.h
+void callback();
 int tempRead(int tempPinNum);
-void updateHLTDisplay(int const temp);
+void updateBKDisplay(int const temp);
 void updateMashDisplay(int const temp);
-void controlHeating(int temp);
+void controlHLTHeating(int temp);
 void TempTime();
+void setupmenu();
+void manualmode();
 void StateMachine();
 //already defined in arduno.h
 

@@ -3,11 +3,14 @@
 #include "stdio.h"
 #include <EEPROM.h>
 #include "brewCore.h"
-
+#include "TimerOne.h"   //CHECK THE INFO RELATED TO THIS TIMER.  GET THE POT WIRED UP.
 //
 // LETS SEE IF I CAN GET AN ARDUINO TO HELP THE BREW PROCESS.
 // ISSUES WITH VAX??? http://forums.wholetomato.com/forum/topic.asp?TOPIC_ID=11091
-const char versionnumber[5] = "0.5";     // current build version
+char versionnumber[5] = "0.6";     // current build version
+
+byte checkfloat = 0;
+bool state = false;
 
 //
 // Arduino pins (i/o)
@@ -22,6 +25,9 @@ byte buttonPress = 1;					// We need a switch or button...
 
 int incoming = 0;						// placeholder for serial read stuff
 
+int potPin	=	3;						// select the input pin for the potentiometer
+int potValue =	0;						// variable to store the value coming from the sensor
+int SSRVal = 0;
 //
 //	Classes
 //
@@ -65,14 +71,6 @@ int timercalculated = 0;	// has the timer for a timed step been set (initially =
 int temparray[16] = {
 	0,1,1,2,3,3,4,4,5,6,6,7,8,8,9,9}; // temperature lookup array
 
-byte checkfloat;
-
-void setupmenu()
-{
-	Serial.println("RUN: SETUP MENU");
-	return;
-}
-
 void formatTime(int hours, int mins, int secs, char time[]) { // format a time to a string from hours, mins, secs
 	// PW 20090203 Added support for overflow of mins and secs
 	if (secs>60) {
@@ -101,24 +99,18 @@ void formatTimeSeconds(long secs, char time[])			// format a time to a string fr
 	formatTime(temphours,tempmins,tempsecs,time);
 }
 
-void manualmode(){
-	checkfloat  = EEPROM.read(200);
-	Serial.print(checkfloat, DEC); // print value on screen
-
-	Serial.println("Starting Manual Mode");
-	while (1)
-	{
-		TempTime();
-	}
-}
 //
 // the setup routine runs once when you press reset:
 //
 //
 void setup() {
+	Timer1.initialize(2500000);							// initialize timer1, and set a 2,5 second period
+	Timer1.pwm(potPin, 0);								// setup pwm on pin 9, duty cycle = 0
+	Timer1.attachInterrupt(callback);					// attaches callback() as a timer overflow interrupt
+
 	pinMode(PinElementHlt, OUTPUT);						// sets the digital pin as output
 
-	//Serial.println(freeRam());							// display free ram
+	//Serial.println(freeRam());						// display free ram
 
 	glcd.st7565_init();									//Initialize the LCD
 	glcd.st7565_command(CMD_DISPLAY_ON);
@@ -126,10 +118,18 @@ void setup() {
 	glcd.st7565_set_brightness(0x18);
 
 	glcd.display();
+	  
+	glcd.drawstring(0, 5, versionnumber); 
+
 	delay(2000);
 	glcd.clear();
 
 	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
+}
+
+void callback()
+{
+	digitalWrite(10, digitalRead(10) ^ 1);
 }
 
 int tempRead(int tempPinNum)
@@ -148,7 +148,7 @@ int tempRead(int tempPinNum)
 	return tempC;
 }
 
-void updateHLTDisplay(int const temp)
+void updateBKDisplay(int const temp)
 {
 	char tempMsg[32];						//Array to hold our data for the temperature conversions and print it to strings
 	sprintf(tempMsg,"HLT  Temp: %d`C", (int)temp);
@@ -164,7 +164,7 @@ void updateMashDisplay(int const temp)
 	glcd.display();
 }
 
-void controlHeating(int temp)
+void controlHLTHeating(int temp)
 {
 	if (temp > HEAT_UP_THRESHOLD && temp <= BOIL_THRESHOLD )	// Thresholds can be found in GLOBAL_H
 	{
@@ -203,11 +203,11 @@ void TempTime()
 {
 	int temp1 = tempRead(tempPin);
 	//int temp2 = tempread(tempPin1);  add me if you have two temp readings ready
-	updateHLTDisplay(temp1);				// read the temp from the boil kettle
+	updateBKDisplay(temp1);				// read the temp from the boil kettle
 	//updateMashDisplay1(temp2);
 
 	delay(100);
-	controlHeating(temp1);
+	controlHLTHeating(temp1);
 
 	//
 	// Might want to embed this into another function..
@@ -218,7 +218,6 @@ void TempTime()
 		previous_millis_value += 1000;
 	}
 	formatTimeSeconds(cumulativeSeconds,total_time);
-
 	if (total_time!=last_total_time)  // only update if changed to prevent flooding
 	{
 		Serial.print("Running time: ");
@@ -231,10 +230,41 @@ void TempTime()
 	}
 }
 
+void setupmenu()
+{
+	Serial.println("RUN: SETUP MENU");
+	return;
+}
+
+void manualmode(){
+	checkfloat = EEPROM.read(200);
+	Serial.print(checkfloat, DEC); // print value on screen
+
+	int start = 1;
+	
+	Serial.println("Starting Manual Mode");
+	state = true;
+	while (state = 1)
+	{
+		TempTime();
+
+		char wait;					//fix me
+		if (Serial.available() > 0)
+		{
+			wait = Serial.read();
+		}
+		if (((char)wait == 'x'))
+		{
+			Serial.println("Punting");
+			state = 0;
+			return;
+		}
+	}
+}
+
 //
 //	This should at some point cause the device to trigger states like, mash in, boil mode, idle... etc.
 //
-
 void StateMachine()
 {
 	int ok;
@@ -242,11 +272,16 @@ void StateMachine()
 	switch(ok == true)
 	{
 	case IDLE:
-		Serial.println("IDLE waiting command");
+		Serial.println("IDLE waiting commands");
 		break;
 
 	case MANUALMODE:
 		Serial.println("Manual Mode");
+		//manualmode();
+		break;
+
+	case AUTOMODE:
+		Serial.println("Automatic Mode");
 		break;
 	}
 }
@@ -258,8 +293,7 @@ byte incomingByte = 0;
 void loop()
 {
 	brewCore.test();
-	//StateMachine();
-	//manualmode();
+
 	while (1)
 	{
 		if (Serial.available() > 0)

@@ -24,10 +24,11 @@ typedef enum  {
 //
 //Brew Steps PS
 //
-typedef enum  {
+typedef enum brewMode {
 	IDLE,
-	MANUALMODE
-}brewSteps;
+	MANUALMODE,
+	AUTOMODE
+}brewMode;
 
 //Brew Steps
 typedef enum {
