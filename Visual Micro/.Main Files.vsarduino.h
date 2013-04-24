@@ -27,12 +27,12 @@ extern "C" void __cxa_pure_virtual() {}
 void formatTime(int hours, int mins, int secs, char time[]);
 void formatTimeSeconds(long secs, char time[]);
 //already defined in arduno.h
-void callback();
 int tempRead(int tempPinNum);
 void updateBKDisplay(int const temp);
 void updateMashDisplay(int const temp);
 void controlHLTHeating(int temp);
 void TempTime();
+void updateDB(int temp);
 void setupmenu();
 void manualmode();
 void StateMachine();

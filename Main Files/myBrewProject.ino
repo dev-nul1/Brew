@@ -1,9 +1,12 @@
+#include <SPI.h>
+#include <Ethernet.h>
+#include <EEPROM.h>
+
 #include "Globals.h"
 #include "ST7565.h"
 #include "stdio.h"
-#include <EEPROM.h>
 #include "brewCore.h"
-#include "TimerOne.h"   //CHECK THE INFO RELATED TO THIS TIMER.  GET THE POT WIRED UP.
+//#include "TimerOne.h"   //CHECK THE INFO RELATED TO THIS TIMER.  GET THE POT WIRED UP.
 //
 // LETS SEE IF I CAN GET AN ARDUINO TO HELP THE BREW PROCESS.
 // ISSUES WITH VAX??? http://forums.wholetomato.com/forum/topic.asp?TOPIC_ID=11091
@@ -12,13 +15,36 @@ char versionnumber[5] = "0.6";     // current build version
 byte checkfloat = 0;
 bool state = false;
 
+int tester = 5;
+//
+// Ethernet
+// 
+const int chipSelect = 4;
+byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+byte ip[] = { 192,168,1, 254 };		//The Arduino device IP address
+byte subnet[] = { 255,255,255,0};
+byte gateway[] = { 192,168,1,1};
+IPAddress server(192,168,1,118); 
+//uint8_t server[] = {192, 168, 1, 118}; // Local Server
+char strURL[70];
+
+//
+//	Classes
+//
+BrewCoreClass brewCore;
+EthernetClient client;//(server, 80);
+
+//Client client(server, 80);
+bool connected = false;      
+
+//Client client(server, 80);
+
 //
 // Arduino pins (i/o)
 //
-int tester = 55;
-
-const byte tempPin	= 0;
-const byte tempPin1 = 1;				// TEMP SENSOR PIN #
+// 0 & 1 are off limits for now
+const byte tempPin	= 2;
+const byte tempPin1 = 3;				// TEMP SENSOR PIN #
 const byte PinElementHlt = 10;			// SSR FOR HLT/KETTLE ELEMENT
 
 byte buttonPress = 1;					// We need a switch or button...
@@ -28,10 +54,7 @@ int incoming = 0;						// placeholder for serial read stuff
 int potPin	=	3;						// select the input pin for the potentiometer
 int potValue =	0;						// variable to store the value coming from the sensor
 int SSRVal = 0;
-//
-//	Classes
-//
-BrewCoreClass brewCore;
+
 
 // the LCD back light is connected up to a pin so you can turn it on & off
 //#define BACKLIGHT_LED 11
@@ -104,9 +127,18 @@ void formatTimeSeconds(long secs, char time[])			// format a time to a string fr
 //
 //
 void setup() {
-	Timer1.initialize(2500000);							// initialize timer1, and set a 2,5 second period
-	Timer1.pwm(potPin, 0);								// setup pwm on pin 9, duty cycle = 0
-	Timer1.attachInterrupt(callback);					// attaches callback() as a timer overflow interrupt
+
+	pinMode(53,OUTPUT); //location of the SS pin, 53 on the Mega, 10 on other
+	digitalWrite(53,HIGH);
+	Ethernet.begin(mac, ip , gateway , subnet);  
+	Serial.println("connecting...");
+	if(!client.connect(server, 80)){
+		Serial.println("failed.");
+	}
+	else {
+		//tempRead(tempPin);
+		client.stop();
+	}
 
 	pinMode(PinElementHlt, OUTPUT);						// sets the digital pin as output
 
@@ -116,21 +148,17 @@ void setup() {
 	glcd.st7565_command(CMD_DISPLAY_ON);
 	glcd.st7565_command(CMD_SET_ALLPTS_NORMAL);
 	glcd.st7565_set_brightness(0x18);
-
 	glcd.display();
-	  
-	glcd.drawstring(0, 5, versionnumber); 
 
 	delay(2000);
+	glcd.clear();
+	glcd.drawstring(0, 5, versionnumber); 
+	delay(1000);
 	glcd.clear();
 
 	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
 }
 
-void callback()
-{
-	digitalWrite(10, digitalRead(10) ^ 1);
-}
 
 int tempRead(int tempPinNum)
 {
@@ -145,6 +173,7 @@ int tempRead(int tempPinNum)
 	// now convert to Fahrenheit
 	//float temperatureF = (tempC * 9.0 / 5.0) + 32.0;
 	//Serial.print(temperatureF); Serial.println(" degrees F");
+	Serial.println(tempC);
 	return tempC;
 }
 
@@ -199,16 +228,18 @@ void controlHLTHeating(int temp)
 	}
 }
 
-void TempTime()
+void TempTime()  //main function
 {
 	int temp1 = tempRead(tempPin);
 	//int temp2 = tempread(tempPin1);  add me if you have two temp readings ready
 	updateBKDisplay(temp1);				// read the temp from the boil kettle
 	//updateMashDisplay1(temp2);
 
-	delay(100);
+	//delay(100);
 	controlHLTHeating(temp1);
-
+	
+	Serial.print("update DB: ");
+	updateDB(temp1);
 	//
 	// Might want to embed this into another function..
 	//
@@ -230,6 +261,24 @@ void TempTime()
 	}
 }
 
+void updateDB(int temp)
+{
+	if (client.connect(server, 80))
+	{
+		Serial.println("Sending to Server: ");
+		sprintf(strURL,"GET /index.php?t=%d",(int)temp);
+		client.println(strURL);
+		client.println();
+		Serial.println(strURL);
+	}
+	else {
+		Serial.println("failed to connect. Trying again later.");
+	}
+	delay(1000);
+	client.stop();
+
+}
+
 void setupmenu()
 {
 	Serial.println("RUN: SETUP MENU");
@@ -237,14 +286,13 @@ void setupmenu()
 }
 
 void manualmode(){
-	checkfloat = EEPROM.read(200);
-	Serial.print(checkfloat, DEC); // print value on screen
+	//checkfloat = EEPROM.read(200);
+	//Serial.print(checkfloat, DEC); // print value on screen
 
-	int start = 1;
 	
 	Serial.println("Starting Manual Mode");
 	state = true;
-	while (state = 1)
+	while (state)
 	{
 		TempTime();
 
@@ -292,8 +340,20 @@ byte incomingByte = 0;
 
 void loop()
 {
-	brewCore.test();
-
+	Ethernet.begin(mac,ip);
+	digitalWrite(53,HIGH);
+// 	if (client.connect(server, 80))
+// 	{
+// 		tempRead(tempPin1);
+// 		Serial.println("Sending to Server: ");
+// 	}
+// 	else {
+// 		Serial.println("failed to connect. Trying again later.");
+// 	}
+// 	delay(1000);
+// 	client.stop();
+	
+	//brewCore.test();
 	while (1)
 	{
 		if (Serial.available() > 0)

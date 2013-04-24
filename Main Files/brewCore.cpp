@@ -8,8 +8,8 @@ void BrewCoreClass::init()
 void BrewCoreClass::test()
 {
 	Serial.println("BrewCoreClass::test() TEST PRINT!");
-	Serial.println("Choose:");
-	Serial.println(tester);
+	Serial.println("Choose: 1 Manual | 2 Setup");
+	//Serial.println(tester);
 	return;
 }
 
