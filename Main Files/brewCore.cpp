@@ -5,14 +5,6 @@ void BrewCoreClass::init()
 {
 }
 
-void BrewCoreClass::test()
-{
-	Serial.println("BrewCoreClass::test() TEST PRINT!");
-	Serial.println("Choose: 1 Manual | 2 Setup");
-	//Serial.println(tester);
-	return;
-}
-
 int BrewCoreClass::freeRam(void)
 {
 	extern int  __bss_end;
@@ -26,7 +18,6 @@ int BrewCoreClass::freeRam(void)
 	}
 	return free_memory;
 }
-
 
 void BrewCoreClass::potAdjustBoil()
 {

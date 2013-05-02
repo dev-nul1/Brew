@@ -28,7 +28,7 @@ void formatTime(int hours, int mins, int secs, char time[]);
 void formatTimeSeconds(long secs, char time[]);
 //already defined in arduno.h
 int tempRead(int tempPinNum);
-void updateBKDisplay(int const temp);
+void updateHLTDisplay(int const temp);
 void updateMashDisplay(int const temp);
 void controlHLTHeating(int temp);
 void TempTime();

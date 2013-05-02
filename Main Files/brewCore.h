@@ -16,7 +16,6 @@ public:
 
 	void init();
 	int freeRam(void);
-	void test();
 
 	void potAdjustBoil();
 

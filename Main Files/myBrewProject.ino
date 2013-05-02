@@ -8,14 +8,9 @@
 #include "brewCore.h"
 //#include "TimerOne.h"   //CHECK THE INFO RELATED TO THIS TIMER.  GET THE POT WIRED UP.
 //
-// LETS SEE IF I CAN GET AN ARDUINO TO HELP THE BREW PROCESS.
 // ISSUES WITH VAX??? http://forums.wholetomato.com/forum/topic.asp?TOPIC_ID=11091
 char versionnumber[5] = "0.6";     // current build version
 
-byte checkfloat = 0;
-bool state = false;
-
-int tester = 5;
 //
 // Ethernet
 // 
@@ -32,9 +27,8 @@ char strURL[70];
 //	Classes
 //
 BrewCoreClass brewCore;
-EthernetClient client;//(server, 80);
+EthernetClient client;
 
-//Client client(server, 80);
 bool connected = false;      
 
 //Client client(server, 80);
@@ -42,8 +36,8 @@ bool connected = false;
 //
 // Arduino pins (i/o)
 //
-// 0 & 1 are off limits for now
-const byte tempPin	= 2;
+//
+const byte tempPin	= 2;				// 0 & 1 are off limits for now the Shield fucks them up
 const byte tempPin1 = 3;				// TEMP SENSOR PIN #
 const byte PinElementHlt = 10;			// SSR FOR HLT/KETTLE ELEMENT
 
@@ -94,6 +88,9 @@ int timercalculated = 0;	// has the timer for a timed step been set (initially =
 int temparray[16] = {
 	0,1,1,2,3,3,4,4,5,6,6,7,8,8,9,9}; // temperature lookup array
 
+#define FIVEMIN (1000UL * 60 * 5)  //* 5 = 5min
+unsigned long rolltime = millis() + FIVEMIN;
+
 void formatTime(int hours, int mins, int secs, char time[]) { // format a time to a string from hours, mins, secs
 	// PW 20090203 Added support for overflow of mins and secs
 	if (secs>60) {
@@ -125,11 +122,13 @@ void formatTimeSeconds(long secs, char time[])			// format a time to a string fr
 //
 // the setup routine runs once when you press reset:
 //
-//
 void setup() {
+	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
 
 	pinMode(53,OUTPUT); //location of the SS pin, 53 on the Mega, 10 on other
 	digitalWrite(53,HIGH);
+	pinMode(PinElementHlt, OUTPUT);						// sets the digital pin as output
+
 	Ethernet.begin(mac, ip , gateway , subnet);  
 	Serial.println("connecting...");
 	if(!client.connect(server, 80)){
@@ -139,10 +138,6 @@ void setup() {
 		//tempRead(tempPin);
 		client.stop();
 	}
-
-	pinMode(PinElementHlt, OUTPUT);						// sets the digital pin as output
-
-	//Serial.println(freeRam());						// display free ram
 
 	glcd.st7565_init();									//Initialize the LCD
 	glcd.st7565_command(CMD_DISPLAY_ON);
@@ -155,8 +150,6 @@ void setup() {
 	glcd.drawstring(0, 5, versionnumber); 
 	delay(1000);
 	glcd.clear();
-
-	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
 }
 
 
@@ -165,8 +158,6 @@ int tempRead(int tempPinNum)
 	float tempC;							// TEMP SENSOR
 	tempC = analogRead(tempPinNum);			//read the value from the sensor
 	tempC = (5.0 * tempC * 100.0)/1024.0;	//convert the analog data to temperature
-
-	//sprintf(tempMsg,"Current Temp: %d", (int)tempC);
 
 	Serial.print("Current Ambient Temp:");
 	Serial.println((int)tempC);             //send the data to the computer
@@ -177,13 +168,15 @@ int tempRead(int tempPinNum)
 	return tempC;
 }
 
-void updateBKDisplay(int const temp)
+
+void updateHLTDisplay(int const temp)
 {
 	char tempMsg[32];						//Array to hold our data for the temperature conversions and print it to strings
 	sprintf(tempMsg,"HLT  Temp: %d`C", (int)temp);
 	glcd.drawstring(0, 0, tempMsg);
 	glcd.display();
 }
+
 
 void updateMashDisplay(int const temp)
 {
@@ -192,6 +185,7 @@ void updateMashDisplay(int const temp)
 	glcd.drawstring(0, 1, tempMsg);
 	glcd.display();
 }
+
 
 void controlHLTHeating(int temp)
 {
@@ -228,20 +222,26 @@ void controlHLTHeating(int temp)
 	}
 }
 
+
 void TempTime()  //main function
 {
 	int temp1 = tempRead(tempPin);
 	//int temp2 = tempread(tempPin1);  add me if you have two temp readings ready
-	updateBKDisplay(temp1);				// read the temp from the boil kettle
+	updateHLTDisplay(temp1);				// read the temp from the boil kettle
 	//updateMashDisplay1(temp2);
 
-	//delay(100);
 	controlHLTHeating(temp1);
+
+	//Update the DB every 5 min
+	if((long)(millis() - rolltime) >= 0)
+	{
+		Serial.print("update DB: ");
+		updateDB(temp1);
+		rolltime += FIVEMIN;
+	}
 	
-	Serial.print("update DB: ");
-	updateDB(temp1);
 	//
-	// Might want to embed this into another function..
+	// Might want to embed this into another function.. timing counter
 	//
 	while(millis() - previous_millis_value >= 1000)
 	{
@@ -261,6 +261,7 @@ void TempTime()  //main function
 	}
 }
 
+
 void updateDB(int temp)
 {
 	if (client.connect(server, 80))
@@ -276,8 +277,8 @@ void updateDB(int temp)
 	}
 	delay(1000);
 	client.stop();
-
 }
+
 
 void setupmenu()
 {
@@ -285,13 +286,11 @@ void setupmenu()
 	return;
 }
 
-void manualmode(){
-	//checkfloat = EEPROM.read(200);
-	//Serial.print(checkfloat, DEC); // print value on screen
 
-	
+void manualmode()
+{	
 	Serial.println("Starting Manual Mode");
-	state = true;
+	bool state = true;
 	while (state)
 	{
 		TempTime();
@@ -334,26 +333,13 @@ void StateMachine()
 	}
 }
 
-//button1 = Button(2);       // Button 1
-
 byte incomingByte = 0;
 
 void loop()
 {
 	Ethernet.begin(mac,ip);
 	digitalWrite(53,HIGH);
-// 	if (client.connect(server, 80))
-// 	{
-// 		tempRead(tempPin1);
-// 		Serial.println("Sending to Server: ");
-// 	}
-// 	else {
-// 		Serial.println("failed to connect. Trying again later.");
-// 	}
-// 	delay(1000);
-// 	client.stop();
 	
-	//brewCore.test();
 	while (1)
 	{
 		if (Serial.available() > 0)
