@@ -1,12 +1,15 @@
 #include "brewCore.h"
-extern int tester;
+#include "Globals.h"
+extern int mode;
 
 void BrewCoreClass::init()
 {
+	mode = IDLE;
 }
 
 int BrewCoreClass::freeRam(void)
 {
+	//prints out the ram left on the Arduino --//useful
 	extern int  __bss_end;
 	extern int  *__brkval;
 	int free_memory;
@@ -19,6 +22,27 @@ int BrewCoreClass::freeRam(void)
 	return free_memory;
 }
 
+//
+//	This should at some point cause the device to trigger states like, mash in, boil mode, idle... etc.
+//
+void BrewCoreClass::StateMachine()
+{
+	switch(mode)
+	{
+	case IDLE:
+		Serial.println("Startup/IDLE waiting commands");
+		break;
+
+	case MANUALMODE:
+		Serial.println("Manual Mode");
+		//manualmode();
+		break;
+
+	case AUTOMODE:
+		Serial.println("Automatic Mode");
+		break;
+	}
+}
 void BrewCoreClass::potAdjustBoil()
 {
 	//

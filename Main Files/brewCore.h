@@ -18,7 +18,7 @@ public:
 	int freeRam(void);
 
 	void potAdjustBoil();
-
+	void StateMachine();
 private:
 };
 

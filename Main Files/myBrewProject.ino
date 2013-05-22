@@ -7,10 +7,9 @@
 #include "stdio.h"
 #include "brewCore.h"
 //#include "TimerOne.h"   //CHECK THE INFO RELATED TO THIS TIMER.  GET THE POT WIRED UP.
-//
-// ISSUES WITH VAX??? http://forums.wholetomato.com/forum/topic.asp?TOPIC_ID=11091
-char versionnumber[5] = "0.6";     // current build version
 
+char versionnumber[6] = "0.6.1";     // current build version
+int mode;
 //
 // Ethernet
 // 
@@ -30,8 +29,6 @@ BrewCoreClass brewCore;
 EthernetClient client;
 
 bool connected = false;      
-
-//Client client(server, 80);
 
 //
 // Arduino pins (i/o)
@@ -62,9 +59,7 @@ ST7565 glcd(9, 8, 7, 6, 5);			// WE NEED TO SETUP THE BACKLIGHT AND SET A COLOR.
 
 #define LOGO16_GLCD_HEIGHT 16
 #define LOGO16_GLCD_WIDTH  16
-// the buffer for the image display
 extern uint8_t st7565_buffer[1024];
-
 
 // TIME STUFF
 //
@@ -150,8 +145,9 @@ void setup() {
 	glcd.drawstring(0, 5, versionnumber); 
 	delay(1000);
 	glcd.clear();
-}
 
+	brewCore.init();
+}
 
 int tempRead(int tempPinNum)
 {
@@ -168,7 +164,6 @@ int tempRead(int tempPinNum)
 	return tempC;
 }
 
-
 void updateHLTDisplay(int const temp)
 {
 	char tempMsg[32];						//Array to hold our data for the temperature conversions and print it to strings
@@ -177,7 +172,6 @@ void updateHLTDisplay(int const temp)
 	glcd.display();
 }
 
-
 void updateMashDisplay(int const temp)
 {
 	char tempMsg[32];						//Array to hold our data for the temperature conversions and print it to strings
@@ -185,7 +179,6 @@ void updateMashDisplay(int const temp)
 	glcd.drawstring(0, 1, tempMsg);
 	glcd.display();
 }
-
 
 void controlHLTHeating(int temp)
 {
@@ -222,7 +215,6 @@ void controlHLTHeating(int temp)
 	}
 }
 
-
 void TempTime()  //main function
 {
 	int temp1 = tempRead(tempPin);
@@ -232,7 +224,9 @@ void TempTime()  //main function
 
 	controlHLTHeating(temp1);
 
-	//Update the DB every 5 min
+	//
+	//	Update the DB
+	// 
 	if((long)(millis() - rolltime) >= 0)
 	{
 		Serial.print("update DB: ");
@@ -261,7 +255,6 @@ void TempTime()  //main function
 	}
 }
 
-
 void updateDB(int temp)
 {
 	if (client.connect(server, 80))
@@ -279,13 +272,11 @@ void updateDB(int temp)
 	client.stop();
 }
 
-
 void setupmenu()
 {
-	Serial.println("RUN: SETUP MENU");
+	Serial.println("RUN: SETUP MENU"); 
 	return;
 }
-
 
 void manualmode()
 {	
@@ -306,30 +297,6 @@ void manualmode()
 			state = 0;
 			return;
 		}
-	}
-}
-
-//
-//	This should at some point cause the device to trigger states like, mash in, boil mode, idle... etc.
-//
-void StateMachine()
-{
-	int ok;
-	ok = true;
-	switch(ok == true)
-	{
-	case IDLE:
-		Serial.println("IDLE waiting commands");
-		break;
-
-	case MANUALMODE:
-		Serial.println("Manual Mode");
-		//manualmode();
-		break;
-
-	case AUTOMODE:
-		Serial.println("Automatic Mode");
-		break;
 	}
 }
 
