@@ -29,6 +29,7 @@ extern "C" void __cxa_pure_virtual() {;}
 void formatTime(int hours, int mins, int secs, char time[]);
 void formatTimeSeconds(long secs, char time[]);
 //
+void callback();
 int tempRead(int tempPinNum);
 void updateHLTDisplay(int const temp);
 void updateMashDisplay(int const temp);

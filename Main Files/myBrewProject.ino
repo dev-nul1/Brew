@@ -1,6 +1,7 @@
 #include <SPI.h>
 #include <Ethernet.h>
 #include <EEPROM.h>
+#include "TimerOne.h"
 
 #include "Globals.h"
 #include "ST7565.h"
@@ -46,6 +47,7 @@ int potPin	=	3;						// select the input pin for the potentiometer
 int potValue =	0;						// variable to store the value coming from the sensor
 int SSRVal = 0;
 
+byte incomingByte = 0;
 
 // the LCD back light is connected up to a pin so you can turn it on & off
 //#define BACKLIGHT_LED 11
@@ -118,9 +120,13 @@ void formatTimeSeconds(long secs, char time[])			// format a time to a string fr
 // the setup routine runs once when you press reset:
 //
 void setup() {
-	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
+	Serial.begin(9600);		
+	//opens serial port, sets data rate to 9600 bps
+	Timer1.initialize(2500000);         // initialize timer1, and set a 2,5 second period
+	Timer1.pwm(9, 0);                   // setup pwm on pin 9, duty cycle = 0
+	Timer1.attachInterrupt(callback);  // attaches callback() as a timer overflow interrupt
 
-	pinMode(53,OUTPUT); //location of the SS pin, 53 on the Mega, 10 on other
+	pinMode(53,OUTPUT);									//location of the SS pin, 53 on the Mega, 10 on other
 	digitalWrite(53,HIGH);
 	pinMode(PinElementHlt, OUTPUT);						// sets the digital pin as output
 
@@ -147,6 +153,11 @@ void setup() {
 	glcd.clear();
 
 	brewCore.init();
+}
+
+void callback()
+{
+	digitalWrite(10, digitalRead(10) ^ 1);
 }
 
 int tempRead(int tempPinNum)
@@ -197,29 +208,22 @@ void controlHLTHeating(int temp)
 		glcd.display();
 		if(temp >= BOIL_THRESHOLD)
 		{
-			digitalWrite(PinElementHlt, LOW);
-			delay(1000);
-			digitalWrite(PinElementHlt, HIGH);
-			delay(1000);
-			if(temp < 27)
-			{
-				return;
-			}
+			//ADD IN POT FUNCTION HERE
+			brewCore.potAdjustBoil();
+
+// 			if(temp < 27)
+// 			{
+// 				return;
+// 			}
 		}
-	}
-	else if(temp <= LOW)
-	{
-		delay(50);
-		glcd.drawstring(1, 4, " It is too cold!");
-		glcd.display();
 	}
 }
 
 void TempTime()  //main function
 {
 	int temp1 = tempRead(tempPin);
-	//int temp2 = tempread(tempPin1);  add me if you have two temp readings ready
-	updateHLTDisplay(temp1);				// read the temp from the boil kettle
+	//int temp2 = tempread(tempPin1);		//	add me if you have two temp readings ready
+	updateHLTDisplay(temp1);				//	read the temp from the boil kettle
 	//updateMashDisplay1(temp2);
 
 	controlHLTHeating(temp1);
@@ -291,7 +295,7 @@ void manualmode()
 		{
 			wait = Serial.read();
 		}
-		if (((char)wait == 'x'))
+		if (((char)wait == 'x'))	//this will remove you from manual mode. Later a button should control this.
 		{
 			Serial.println("Punting");
 			state = 0;
@@ -299,8 +303,6 @@ void manualmode()
 		}
 	}
 }
-
-byte incomingByte = 0;
 
 void loop()
 {
