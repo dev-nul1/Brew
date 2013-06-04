@@ -7,18 +7,16 @@
 #include "ST7565.h"
 #include "stdio.h"
 #include "brewCore.h"
-//#include "TimerOne.h"   //CHECK THE INFO RELATED TO THIS TIMER.  GET THE POT WIRED UP.
 
-char versionnumber[6] = "0.6.1";     // current build version
-int mode;
+char versionnumber[6]		= "0.6.1";     // current build version
 //
 // Ethernet
 // 
-const int chipSelect = 4;
-byte mac[] = { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
-byte ip[] = { 192,168,1, 254 };		//The Arduino device IP address
-byte subnet[] = { 255,255,255,0};
-byte gateway[] = { 192,168,1,1};
+const int chipSelect		= 4;
+byte mac[]					= { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0xED };
+byte ip[]					= { 192,168,1, 254 };		//The Arduino device IP address
+byte subnet[]				= { 255,255,255,0};
+byte gateway[]				= { 192,168,1,1};
 IPAddress server(192,168,1,118); 
 //uint8_t server[] = {192, 168, 1, 118}; // Local Server
 char strURL[70];
@@ -35,29 +33,32 @@ bool connected = false;
 // Arduino pins (i/o)
 //
 //
-const byte tempPin	= 2;				// 0 & 1 are off limits for now the Shield fucks them up
-const byte tempPin1 = 3;				// TEMP SENSOR PIN #
-const byte PinElementHlt = 10;			// SSR FOR HLT/KETTLE ELEMENT
+const byte tempPin			= 2;	// 0 & 1 are off limits for now the Shield fucks them up
+const byte tempPin1			= 3;	// TEMP SENSOR PIN #
+const byte PinElementHlt	= 10;	// SSR FOR HLT/KETTLE ELEMENT
 
-byte buttonPress = 1;					// We need a switch or button...
+byte buttonPress			= 1;	// We need a switch or button...
 
-int incoming = 0;						// placeholder for serial read stuff
+int incoming				= 0;	// placeholder for serial read char variable
+byte incomingByte			= 0;
 
-int potPin	=	3;						// select the input pin for the potentiometer
-int potValue =	0;						// variable to store the value coming from the sensor
-int SSRVal = 0;
+int potPin					= 3;	// select the input pin for the potentiometer
+int potValue				= 0;	// variable to store the value coming from the sensor
+int SSRVal					= 0;
 
-byte incomingByte = 0;
+int errorAlert				= 0;
+bool errorSignaled			= false;
+int mode;
 
 // the LCD back light is connected up to a pin so you can turn it on & off
 //#define BACKLIGHT_LED 11
 // Learn how to control via the PMW the different LED's.  IE FLASH, COLOR DEPENDANT ON MODE, ETC.
 ST7565 glcd(9, 8, 7, 6, 5);			// WE NEED TO SETUP THE BACKLIGHT AND SET A COLOR.
-// pin 9 - Serial data out (SID)
-// pin 8 - Serial clock out (SCLK)
-// pin 7 - Data/Command select (RS or A0)
-// pin 6 - LCD reset (RST)
-// pin 5 - LCD chip select (CS)
+									// pin 9 - Serial data out (SID)
+									// pin 8 - Serial clock out (SCLK)
+									// pin 7 - Data/Command select (RS or A0)
+									// pin 6 - LCD reset (RST)
+									// pin 5 - LCD chip select (CS)
 
 #define LOGO16_GLCD_HEIGHT 16
 #define LOGO16_GLCD_WIDTH  16
@@ -67,10 +68,10 @@ extern uint8_t st7565_buffer[1024];
 //
 //extern volatile unsigned long timer0_millis;  //used to reset internal timer millis
 unsigned long previous_millis_value = 0;		//this stuff for elapsed time
-unsigned long cumulativeSeconds = 0;
-unsigned int totalseconds = 0;
-unsigned int totalminutes = 0;
-unsigned int totalhours = 0;
+unsigned long cumulativeSeconds		= 0;
+unsigned int totalseconds			= 0;
+unsigned int totalminutes			= 0;
+unsigned int totalhours				= 0;
 char total_time[9] = "  :  :  ";
 char last_total_time[9] = "  :  :  ";
 char stepelapsedtime[9] = "  :  :  ";
@@ -78,7 +79,7 @@ unsigned long cyclecount = 0;
 char steptotaltime[9] = "  :  :  ";
 char temptime[9] = "  :  :  ";
 
-long stepelapsed = 0;		// number of milliseconds remaining
+long stepelapsed	= 0;	// number of milliseconds remaining
 int stepelapsedsecs = 0;	// number of seconds remaining
 int timercalculated = 0;	// has the timer for a timed step been set (initially = false)
 
@@ -120,11 +121,10 @@ void formatTimeSeconds(long secs, char time[])			// format a time to a string fr
 // the setup routine runs once when you press reset:
 //
 void setup() {
-	Serial.begin(9600);		
-	//opens serial port, sets data rate to 9600 bps
-	Timer1.initialize(2500000);         // initialize timer1, and set a 2,5 second period
-	Timer1.pwm(9, 0);                   // setup pwm on pin 9, duty cycle = 0
-	Timer1.attachInterrupt(callback);  // attaches callback() as a timer overflow interrupt
+	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
+	Timer1.initialize(2500000);							// initialize timer1, and set a 2,5 second period
+	Timer1.pwm(9, 0);									// setup pwm on pin 9, duty cycle = 0
+	Timer1.attachInterrupt(callback);					// attaches callback() as a timer overflow interrupt
 
 	pinMode(53,OUTPUT);									//location of the SS pin, 53 on the Mega, 10 on other
 	digitalWrite(53,HIGH);
@@ -158,6 +158,26 @@ void setup() {
 void callback()
 {
 	digitalWrite(10, digitalRead(10) ^ 1);
+}
+
+void potAdjustBoil()
+{
+	//
+	//	This will serve as an adjustment function for the boil.  A pot will scale the cycle time for the SSR.
+	//  look into this timer for setting the cycle rate for the value of the pot.
+
+	potValue = analogRead(potPin);
+	SSRVal = potValue;
+
+
+	Timer1.setPwmDuty(PinElementHlt, SSRVal);
+	Serial.println(SSRVal); 
+
+	// 	digitalWrite(PinElementHlt, LOW);
+	// 	digitalWrite(PinElementHlt, HIGH);
+
+	//delay(1000);
+	//return potValue;
 }
 
 int tempRead(int tempPinNum)
@@ -209,7 +229,7 @@ void controlHLTHeating(int temp)
 		if(temp >= BOIL_THRESHOLD)
 		{
 			//ADD IN POT FUNCTION HERE
-			brewCore.potAdjustBoil();
+			potAdjustBoil();
 
 // 			if(temp < 27)
 // 			{
@@ -222,7 +242,21 @@ void controlHLTHeating(int temp)
 void TempTime()  //main function
 {
 	int temp1 = tempRead(tempPin);
-	//int temp2 = tempread(tempPin1);		//	add me if you have two temp readings ready
+	int temp2 = tempRead(tempPin1);			//	add me if you have two temp readings ready
+	if (errorAlert > 1 && errorSignaled == true)
+	{
+		switch (errorAlert)
+		{
+		case ERROR:
+		case ERROR_DB_UPDATE:
+		case ERROR_TEMP:
+			errorSignaled = false;
+			break;
+			//spit out error to display and pulse a light.
+			
+		}
+		// do something
+	}
 	updateHLTDisplay(temp1);				//	read the temp from the boil kettle
 	//updateMashDisplay1(temp2);
 
@@ -252,7 +286,7 @@ void TempTime()  //main function
 		Serial.print("Running time: ");
 		delay(300);
 		Serial.println(total_time);
-		last_total_time==total_time;
+		last_total_time == total_time;
 		glcd.drawstring(0, 7, " RUNTIME:");
 		glcd.drawstring(60, 7, total_time);
 		glcd.display();
@@ -268,9 +302,11 @@ void updateDB(int temp)
 		client.println(strURL);
 		client.println();
 		Serial.println(strURL);
+		errorAlert = NO_ERROR;
 	}
 	else {
 		Serial.println("failed to connect. Trying again later.");
+		errorAlert = ERROR_DB_UPDATE;
 	}
 	delay(1000);
 	client.stop();
@@ -285,19 +321,19 @@ void setupmenu()
 void manualmode()
 {	
 	Serial.println("Starting Manual Mode");
+	char wait = 0;					//fix me
 	bool state = true;
 	while (state)
 	{
 		TempTime();
 
-		char wait;					//fix me
 		if (Serial.available() > 0)
 		{
 			wait = Serial.read();
 		}
 		if (((char)wait == 'x'))	//this will remove you from manual mode. Later a button should control this.
 		{
-			Serial.println("Punting");
+			Serial.println("Leaving manual mode...");
 			state = 0;
 			return;
 		}

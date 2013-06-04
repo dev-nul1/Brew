@@ -48,32 +48,5 @@ void BrewCoreClass::StateMachine()
 		break;
 	}
 }
-void BrewCoreClass::potAdjustBoil()
-{
-	//
-	//	This will serve as an adjustment function for the boil.  A pot will scale the cycle time for the SSR.
-	// look into this timer for setting the cycle rate for the value of the pot.
-	//
-	// 
-	// 	if (potValue >= 1010) {
-	// 		SSRVal = 1024;
-	// 	}
-	// 	}else	{
-	
-	potValue = analogRead(potPin);
-	SSRVal = potValue;
-
-
-	Timer1.setPwmDuty(PinElementHlt, SSRVal);
-	Serial.println(SSRVal); 
-
-// 	digitalWrite(PinElementHlt, LOW);
-// 	digitalWrite(PinElementHlt, HIGH);
-
-	//delay(1000);
-	//return potValue;
-}
-
-
 
 BrewCoreClass BREWCOREobj;

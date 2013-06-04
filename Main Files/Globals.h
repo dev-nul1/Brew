@@ -12,6 +12,15 @@ typedef enum {
 	TIMER_NUMTIMERS
 } timers;
 
+//Error
+ typedef enum errorList{
+	 NO_ERROR = 0,
+	 ERROR = 0x0001,
+	 ERROR_DB_UPDATE,
+	 ERROR_TEMP,
+	 ERROR_ALERT
+ };
+
 //
 //Brew Steps PS
 //
@@ -27,12 +36,12 @@ typedef enum  {
 typedef enum brewMode {
 	IDLE,
 	MANUALMODE,
-	AUTOMODE
+	AUTOMODE,
 }brewMode;
 
 //Brew Steps
 typedef enum {
-	BREWSTEP_FILL,
+	BREWSTEP_FILL = 0x1000,
 	BREWSTEP_DELAY,
 	BREWSTEP_PREHEAT,
 	BREWSTEP_ADDGRAIN,
