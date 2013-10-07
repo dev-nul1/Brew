@@ -46,7 +46,7 @@
       <AdditionalIncludeDirectories>D:\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino;D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega;D:\Arduino\arduino-1.0.1\libraries\SPI;D:\Arduino\arduino-1.0.1\libraries\SPI\utility;D:\Arduino\arduino-1.0.1\libraries\Ethernet;D:\Arduino\arduino-1.0.1\libraries\Ethernet\utility;D:\Arduino\arduino-1.0.1\libraries\EEPROM;D:\Arduino\arduino-1.0.1\libraries\EEPROM\utility;D:\Arduino\arduino-1.0.1\libraries\timerOne;D:\Arduino\arduino-1.0.1\libraries\timerOne\utility;D:\Arduino\arduino-1.0.1\libraries\ST7565;D:\Arduino\arduino-1.0.1\libraries\ST7565\utility;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\avr\;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\;d:\arduino\arduino-1.0.1\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>D:\CODING\Arduino\Brew\Visual Micro\.Main Files.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
-      <PreprocessorDefinitions>__AVR_ATmega1280__;ARDUINO=101;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>__AVR_ATmega1280__;ARDUINO=101;ARDUINO_MAIN;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
@@ -72,6 +72,25 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\binary.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Client.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\HardwareSerial.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\IPAddress.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\new.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Platform.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Print.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Printable.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Server.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Stream.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Udp.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\USBAPI.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\USBCore.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\USBDesc.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\WCharacter.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_private.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\WString.h" />
+    <ClInclude Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\variants\mega\pins_arduino.h" />
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h" />
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\binary.h" />
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Client.h" />
@@ -102,6 +121,24 @@
     <None Include="Main Files\notes" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\CDC.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\HardwareSerial.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\HID.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\IPAddress.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\main.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\new.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Print.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Stream.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\Tone.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\USBCore.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\WInterrupts.c" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\wiring.c" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_analog.c" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_digital.c" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_pulse.c" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\wiring_shift.c" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\WMath.cpp" />
+    <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\WString.cpp" />
     <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\new.cpp" />
     <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Print.cpp" />
     <ClCompile Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Stream.cpp" />
@@ -135,7 +172,7 @@
   </ImportGroup>
   <ProjectExtensions>
     <VisualStudio>
-      <UserProperties arduino.board.name="mega" arduino.board.desc="Arduino Mega (ATmega1280)" arduino.board.property_bag="mega.name=Arduino Mega (ATmega1280)&#xD;&#xA;mega.upload.protocol=arduino&#xD;&#xA;mega.upload.maximum_size=126976&#xD;&#xA;mega.upload.speed=57600&#xD;&#xA;mega.bootloader.low_fuses=0xFF&#xD;&#xA;mega.bootloader.high_fuses=0xDA&#xD;&#xA;mega.bootloader.extended_fuses=0xF5&#xD;&#xA;mega.bootloader.path=atmega&#xD;&#xA;mega.bootloader.file=ATmegaBOOT_168_atmega1280.hex&#xD;&#xA;mega.bootloader.unlock_bits=0x3F&#xD;&#xA;mega.bootloader.lock_bits=0x0F&#xD;&#xA;mega.build.mcu=atmega1280&#xD;&#xA;mega.build.f_cpu=16000000L&#xD;&#xA;mega.build.core=arduino&#xD;&#xA;mega.build.variant=mega&#xD;&#xA;" arduino.build.mcu="atmega1280" arduino.build.f_cpu="16000000L" arduino.build.core="arduino" arduino.upload.protocol="arduino" arduino.upload.speed="57600" arduino.upload.maximum_size="126976" arduino.upload.port="COM3" />
+      <UserProperties arduino.board.name="mega" arduino.board.desc="Arduino Mega (ATmega1280)" arduino.board.property_bag="name=Arduino Mega (ATmega1280)&#xD;&#xA;upload.protocol=arduino&#xD;&#xA;upload.maximum_size=126976&#xD;&#xA;upload.speed=57600&#xD;&#xA;bootloader.low_fuses=0xFF&#xD;&#xA;bootloader.high_fuses=0xDA&#xD;&#xA;bootloader.extended_fuses=0xF5&#xD;&#xA;bootloader.path=atmega&#xD;&#xA;bootloader.file=ATmegaBOOT_168_atmega1280.hex&#xD;&#xA;bootloader.unlock_bits=0x3F&#xD;&#xA;bootloader.lock_bits=0x0F&#xD;&#xA;build.mcu=atmega1280&#xD;&#xA;build.f_cpu=16000000L&#xD;&#xA;build.core=arduino&#xD;&#xA;build.variant=mega&#xD;&#xA;runtime.ide.path=D:\Arduino\arduino-1.0.1&#xD;&#xA;build.system.path=D:\Arduino\arduino-1.0.1\hardware\arduino\system&#xD;&#xA;runtime.ide.version=101&#xD;&#xA;originalid=mega&#xD;&#xA;vm.core.include=arduino.h&#xD;&#xA;vm.boardsource.path=D:\Arduino\arduino-1.0.1\hardware\arduino&#xD;&#xA;vm.platformname.name=avr&#xD;&#xA;build.arch=AVR&#xD;&#xA;ide.hint=Arduino 0023 and 1.0.x Ide&#xD;&#xA;ide.location.key=Arduino&#xD;&#xA;ide.location.ide.winreg=Arduino 1.0.x Application&#xD;&#xA;ide.location.sketchbook.winreg=Arduino 1.0.x Sketchbook&#xD;&#xA;ide.location.sketchbook.preferences=sketchbook.path&#xD;&#xA;ide.location.sketchbook.default=%MYDOCUMENTS%\arduino&#xD;&#xA;ide.location.preferences=%VM_APPDATA_ROAMING%\arduino\preferences.txt&#xD;&#xA;ide.default.package=arduino&#xD;&#xA;ide.default.platform=avr&#xD;&#xA;ide.multiplatform=true&#xD;&#xA;ide.includes=arduino.h&#xD;&#xA;ide.platformswithoutpackage=true&#xD;&#xA;ide.sketchfolder.platforms.exclude=avr&#xD;&#xA;ide.includes.fallback=wprogram.h&#xD;&#xA;ide.extension=ino&#xD;&#xA;ide.extension.fallback=pde&#xD;&#xA;ide.versionLTEQ=149&#xD;&#xA;ide.exe=arduino.exe&#xD;&#xA;ide.hosts=atmel&#xD;&#xA;ide.url=http://arduino.cc/en/Main/Software&#xD;&#xA;vm.debug=true&#xD;&#xA;software=ARDUINO&#xD;&#xA;ide.appid=arduino10x&#xD;&#xA;location.sketchbook=D:\Arduino\sketches&#xD;&#xA;" arduino.build.mcu="atmega1280" arduino.build.f_cpu="16000000L" arduino.build.core="arduino" arduino.upload.protocol="arduino" arduino.upload.speed="57600" arduino.upload.maximum_size="126976" arduino.upload.port="COM3" visualmicro.application.name="arduino10x" visualmicro.package.name="arduino" visualmicro.platform.name="avr" />
     </VisualStudio>
   </ProjectExtensions>
 </Project>
