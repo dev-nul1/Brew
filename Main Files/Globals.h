@@ -5,6 +5,27 @@
 #include <stdint.h>
 #define BAD_TEMP -32768
 
+//
+//	For Python
+// 
+enum beerMessages{
+	BEER_SETTING_FROM_FRIDGE,
+	BEER_SETTING_FROM_SERIAL,
+	BEER_SETTING_FROM_PROFILE
+};
+
+enum fridgeMessages{
+	FRIDGE_SETTING_FROM_FRIDGE,
+	FRIDGE_SETTING_FROM_SERIAL,
+	FRIDGE_DOOR_OPEN,
+	FRIDGE_DOOR_CLOSED,
+	POSPEAK,
+	NEGPEAK,
+	POSDRIFT,
+	NEGDRIFT,
+	ARDUINO_START
+};
+
 //Timers
 typedef enum {
 	TIMER_MASH,
@@ -13,13 +34,13 @@ typedef enum {
 } timers;
 
 //Error
- typedef enum errorList{
+ typedef enum {
 	 NO_ERROR = 0,
 	 ERROR = 0x0001,
 	 ERROR_DB_UPDATE,
 	 ERROR_TEMP,
 	 ERROR_ALERT
- };
+}errorList;
 
 //
 //Brew Steps PS
@@ -33,7 +54,7 @@ typedef enum  {
 //
 //Brew Steps PS
 //
-typedef enum brewMode {
+typedef enum {
 	IDLE,
 	MANUALMODE,
 	AUTOMODE,

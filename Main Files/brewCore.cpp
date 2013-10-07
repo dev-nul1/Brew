@@ -49,4 +49,14 @@ void BrewCoreClass::StateMachine()
 	}
 }
 
+void BrewCoreClass::displayMAC()
+{
+
+}
+
+void BrewCoreClass::displayIP()
+{
+
+}
+
 BrewCoreClass BREWCOREobj;

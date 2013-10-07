@@ -19,6 +19,9 @@ public:
 
 	void potAdjustBoil();
 	void StateMachine();
+	void displayMAC();
+	void displayIP();
+
 private:
 };
 
