@@ -45,7 +45,7 @@ byte buttonPress			= 1;	// We need a switch or button...
 int incoming				= 0;	// placeholder for serial read char variable
 byte incomingByte			= 0;
 
-int potPin					= 3;	// select the input pin for the potentiometer
+int potPin					= 9;	// select the input pin for the potentiometer
 int potValue				= 0;	// variable to store the value coming from the sensor
 int SSRVal					= 0;
 
@@ -127,11 +127,12 @@ void formatTimeSeconds(long secs, char time[])			// format a time to a string fr
 //
 // The setup routine runs once when you press reset or when the device boots up:
 //
-void setup() {
+void setup() 
+{
 	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
-	//Timer1.initialize(2500000);						// initialize timer1, and set a 2,5 second period
-	//Timer1.pwm(9, 0);									// setup pwm on pin 9, duty cycle = 0
-	//Timer1.attachInterrupt(callback);					// attaches callback() as a timer overflow interrupt
+// 	Timer1.initialize(2500000);							// initialize timer1, and set a 2,5 second period
+// 	Timer1.pwm(8, 512);									// setup pwm on pin 9, duty cycle = 0
+// 	Timer1.attachInterrupt(callback);					// attaches callback() as a timer overflow interrupt
 
 	pinMode(53,OUTPUT);									//location of the SS pin, 53 on the Mega, 10 on other
 	digitalWrite(53,HIGH);
@@ -161,7 +162,7 @@ void setup() {
 	delay(1000);
 	glcd.clear();
 
-	brewCore.init();
+//	brewCore.init();
 }
 
 void callback()
@@ -169,16 +170,44 @@ void callback()
 	digitalWrite(10, digitalRead(10) ^ 1);
 }
 
+int led = 13;
+int val = 0;        // variable storing value from pot
+int burner = 0;
+int cycle = 2;     // cycle length of .1 hz
+int ssrPin= 10;     // digital pin location of ssr trigger
+int ssrAlert=11;
+
+// Reading input from potentiometer
+void ssr(byte load){
+	int on = (1.0*load/9)*cycle*1200;
+	int off = (cycle*1200) - on;
+	digitalWrite(led, LOW);
+	//digitalWrite(ssrAlert,LOW);
+	delay(off);
+	digitalWrite(led, HIGH);
+	//digitalWrite(ssrAlert,HIGH);
+	delay(on);
+}
+
 void potAdjustBoil()
 {
-	//
 	//	This will serve as an adjustment function for the boil.  A pot will scale the cycle time for the SSR.
 	//  look into this timer for setting the cycle rate for the value of the pot.
 	potValue = analogRead(potPin);
 	SSRVal = potValue;
 
-	Timer1.setPwmDuty(PinElementHlt, SSRVal);
-	//Serial.println(SSRVal); 
+	//Timer1.setPwmDuty(PinElementHlt, SSRVal);
+	
+	Serial.println(SSRVal);
+
+	digitalWrite(led, HIGH);  // turn the ledPin on
+	delay(potValue);                  // stop the program for some time
+	digitalWrite(led, LOW);   // turn the ledPin off
+	delay(potValue);                  // stop the program for some time
+	//digitalWrite(led, HIGH);   // turn the LED on (HIGH is the voltage level)
+	//delay(1000);               // wait for a second
+	//digitalWrite(led, LOW);    // turn the LED off by making the voltage LOW
+	//delay(1000);               // wait for a second
 	// 	digitalWrite(PinElementHlt, LOW);
 	// 	digitalWrite(PinElementHlt, HIGH);
 	//delay(1000);
@@ -387,16 +416,30 @@ void manualmode()
 	}
 }
 
+
+
 void loop()
 {
+	val = analogRead(potPin);    // read value from pot (0-1023)
+	burner = ((val*10)/1024);
+	Serial.println(val);
+	ssr(burner);
+
+	//potAdjustBoil();
+// 	for (int i=0; i <= 1023; i += 255)
+// 	{
+// 		Timer1.setPwmDuty(led, i);
+// 		Serial.println(i);
+// 
+// 		delay(5000);
+// 	}
 #if ETHERNET_SHIELD
 	Ethernet.begin(mac,ip);
 #endif
-	Serial.print("\"Beer temperature setting changed to ");
-	TempTime();
-
-	delay(1000);
-	digitalWrite(53,HIGH);
+// 	TempTime();
+// 
+// 	delay(1000);
+// 	digitalWrite(53,HIGH);
 // 	manualmode();
 // 	while (1)
 // 	{

@@ -33,6 +33,7 @@ void formatTime(int hours, int mins, int secs, char time[]);
 void formatTimeSeconds(long secs, char time[]);
 //
 void callback();
+void ssr(byte load);
 void potAdjustBoil();
 int tempRead(int tempPinNum);
 void updateHLTDisplay(int const temp);
