@@ -15,6 +15,7 @@ class BrewCoreClass
 public:
 
 	void init();
+
 	int freeRam(void);
 
 	void potAdjustBoil();

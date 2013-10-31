@@ -32,7 +32,6 @@ extern "C" void __cxa_pure_virtual() {;}
 void formatTime(int hours, int mins, int secs, char time[]);
 void formatTimeSeconds(long secs, char time[]);
 //
-void callback();
 void ssr(byte load);
 void potAdjustBoil();
 int tempRead(int tempPinNum);
@@ -40,7 +39,6 @@ void updateHLTDisplay(int const temp);
 void updateMashDisplay(int const temp);
 void controlHLTHeating(int temp);
 void TempTime();
-void updateDB(int temp);
 void serialPrintTemperatures(void);
 void serialBeerMessage(int messageType);
 void setupmenu();

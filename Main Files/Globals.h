@@ -3,7 +3,10 @@
 
 #include <stdlib.h>
 #include <stdint.h>
+
+
 #define BAD_TEMP -32768
+#define FAHRENHEIT 0
 
 //
 //	For Python
@@ -46,8 +49,8 @@ typedef enum {
 //Brew Steps PS
 //
 typedef enum  {
-	BOIL_THRESHOLD = 27,
-	HEAT_UP_THRESHOLD = 20,
+	BOIL_THRESHOLD = 30,
+	HEAT_UP_THRESHOLD = 10,
 	LOW_THRESHOLD = 19
 }thresholds;
 

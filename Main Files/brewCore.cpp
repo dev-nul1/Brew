@@ -5,7 +5,7 @@ extern int mode;
 extern int potPin;
 extern int potValue;
 extern int SSRVal;
-extern const byte PinElementHlt;
+extern const byte SSRpinControlHLT;
 
 void BrewCoreClass::init()
 {
