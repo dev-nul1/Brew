@@ -43,7 +43,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <AdditionalIncludeDirectories>D:\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino;D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega;D:\Arduino\arduino-1.0.1\libraries\SPI;D:\Arduino\arduino-1.0.1\libraries\SPI\utility;D:\Arduino\arduino-1.0.1\libraries\Ethernet;D:\Arduino\arduino-1.0.1\libraries\Ethernet\utility;D:\Arduino\arduino-1.0.1\libraries\EEPROM;D:\Arduino\arduino-1.0.1\libraries\EEPROM\utility;D:\Arduino\arduino-1.0.1\libraries\timerOne;D:\Arduino\arduino-1.0.1\libraries\timerOne\utility;D:\Arduino\arduino-1.0.1\libraries\ST7565;D:\Arduino\arduino-1.0.1\libraries\ST7565\utility;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\avr\;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\;d:\arduino\arduino-1.0.1\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino;D:\Arduino\arduino-1.0.1\hardware\arduino\variants\mega;D:\Arduino\arduino-1.0.1\libraries\SPI;D:\Arduino\arduino-1.0.1\libraries\SPI\utility;D:\Arduino\arduino-1.0.1\libraries\Ethernet;D:\Arduino\arduino-1.0.1\libraries\Ethernet\utility;D:\Arduino\arduino-1.0.1\libraries\EEPROM;D:\Arduino\arduino-1.0.1\libraries\EEPROM\utility;D:\Arduino\arduino-1.0.1\libraries\ST7565;D:\Arduino\arduino-1.0.1\libraries\ST7565\utility;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\include\avr\;d:\arduino\arduino-1.0.1\hardware\tools\avr\avr\;d:\arduino\arduino-1.0.1\hardware\tools\avr\lib\gcc\avr\4.3.2\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>D:\CODING\Arduino\Brew\Visual Micro\.Main Files.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
       <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
       <PreprocessorDefinitions>__AVR_ATmega1280__;ARDUINO=101;ARDUINO_MAIN;__AVR__;F_CPU=16000000L;__cplusplus;%(PreprocessorDefinitions)</PreprocessorDefinitions>
@@ -118,7 +118,7 @@
     <ClInclude Include="timerOne\TimerOne.h" />
     <ClInclude Include="Visual Micro\.Main Files.vsarduino.h" />
     <ClInclude Include="Visual Micro\.myBrewProject.vsarduino.h" />
-    <None Include="Main Files\notes" />
+    <None Include="Main Files\notes and old code" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\Arduino\arduino-1.0.1\hardware\arduino\cores\arduino\CDC.cpp" />

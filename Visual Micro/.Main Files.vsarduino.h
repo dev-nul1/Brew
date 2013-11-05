@@ -41,6 +41,8 @@ void controlHLTHeating(int temp);
 void TempTime();
 void serialPrintTemperatures(void);
 void serialBeerMessage(int messageType);
+void handleSerialCommunication(void);
+int numberFromSerial(void);
 void setupmenu();
 void manualmode();
 //

@@ -24,10 +24,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Main Files\notes">
+    <None Include="Main Files\myBrewProject.ino" />
+    <None Include="Main Files\notes and old code">
       <Filter>Header Files</Filter>
     </None>
-    <None Include="Main Files\myBrewProject.ino" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\arduino-1.0.1\hardware\arduino\cores\arduino\Arduino.h">

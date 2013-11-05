@@ -20,9 +20,10 @@ EthernetClient client;
 //
 const byte tempPin			= 2;	// 0 & 1 are off limits for now the Shield fucks them up
 const byte tempPin1			= 3;	// TEMP SENSOR PIN #
-int potPin					= 9;	// select the input pin for the potentiometer
-int SSRpinControlHLT		= 10;	// SSR FOR HLT/KETTLE ELEMENT
+const int SSRpinControlHLT		= 10;	// SSR FOR HLT/KETTLE ELEMENT
 const int ssrAlert			= 11;	//extra
+int potPin					= 12;	// select the input pin for the potentiometer
+
 const int led				= 13;
 
 int val						= 0;	// variable storing value from pot
@@ -141,7 +142,7 @@ void setup()
 //	brewCore.init();
 }
 
-// the follow variables is a long because the time, measured in miliseconds,
+// the follow variables is a long because the time, measured in milliseconds,
 // will quickly become a bigger number than can be stored in an int.
 long interval = 1000;           // interval at which to blink (milliseconds)
 long previousMillis = 0;        // will store last time LED was updated
@@ -205,13 +206,13 @@ int tempRead(int tempPinNum)
 	float temperatureF = (tempC * 9.0 / 5.0) + 32.0;
 	Serial.print(temperatureF); Serial.println(" degrees F");
 #endif
-	//Serial.println(tempC);					// this has the format of 21.xx instead of a rounded whole number.
+	//Serial.println(tempC);				// this has the format of 21.xx instead of a rounded whole number.
 	beerTemperatureActual = tempC;			//sets temp for Python
-	serialPrintTemperatures();
-	if (NULL)
-	{
-		serialBeerMessage(1);
-	}
+	//serialPrintTemperatures();
+// 	if (NULL)
+// 	{
+// 		serialBeerMessage(1);
+// 	}
 	return tempC;
 }
 
@@ -255,6 +256,7 @@ void controlHLTHeating(int temp)
 			return;
 		}
 	}
+	return;
 }
 
 void TempTime()  //main function
@@ -262,9 +264,15 @@ void TempTime()  //main function
 	int temp1 = tempRead(tempPin);
 	tempRead(tempPin);
 	controlHLTHeating(temp1);
-
-	//serialBeerMessage(1);
 	//serialPrintTemperatures();
+	handleSerialCommunication();
+// 	bool once = false;
+// 	if (once == false)
+// 	{
+// 		handleSerialCommunication();
+// 		once = true;
+// 	}
+	//serialBeerMessage(1);
 	//int temp2 = tempRead(tempPin1);			//	add me if you have two temp readings ready
 	if (errorAlert > 1 && errorSignaled == true)
 	{
@@ -277,10 +285,7 @@ void TempTime()  //main function
 			break;
 			//spit out error to display and pulse a light.
 		}
-	}
-	//updateHLTDisplay(temp1);				//	read the temp from the boil kettle
-	//updateMashDisplay1(temp2);
-	//controlHLTHeating(temp1);
+	}	
 	//
 	// Might want to embed this into another function.. timing counter
 	//
@@ -303,12 +308,14 @@ void TempTime()  //main function
 	}
 }
 
-void serialPrintTemperatures(void){
+void serialPrintTemperatures(void)
+{
 	Serial.print(beerTemperatureActual);
 	Serial.println(";");
 }
 
-void serialBeerMessage(int messageType){
+void serialBeerMessage(int messageType)
+{
 	Serial.print(beerTemperatureActual);
 
 	switch(messageType)
@@ -335,6 +342,77 @@ void serialBeerMessage(int messageType){
 		Serial.println("\"Error: Unknown Beer Message Type!\"");
 	}
 	Serial.println(";");
+}
+
+// void handleSerialCommunication(void)
+// {
+// 	int newTemp;
+// 	if (Serial.available() > 0)
+// 	{
+// 		char inByte = Serial.read();
+// 		switch(inByte)
+// 		{
+// 		case 'r': //Data request
+// 			serialPrintTemperatures();
+// 			break;
+// 		default:
+// 			Serial.println(".Invalid command Received by Arduino");
+// 		}
+// 		Serial.flush();
+// 	}
+// }
+void handleSerialCommunication(void){
+	if (Serial.available() > 0)
+	{
+		char inByte = Serial.read();
+		switch(inByte)
+		{
+		case 'r': //Data request
+			serialPrintTemperatures();
+			break;
+
+		case 'b': //Set to constant beer temperature
+			break;
+
+		case 'p': //Set profile temperature
+			beerTemperatureSetting = numberFromSerial();
+			break;
+
+		case 'f': //Set to constant fridge temperature
+			break;
+
+		case 's': //Settings requested
+			switch(mode)
+			{
+
+			}
+			break;
+
+		case 'l': //LCD contents requested
+			break;
+		default:
+			Serial.println(".Invalid command Received by Arduino");
+		}
+		Serial.flush();
+	}
+}
+
+int numberFromSerial(void)
+{
+	char numberString[8];
+	unsigned char index=0;
+	delay(10);
+	while(Serial.available() > 0)
+	{
+		delay(10);
+		numberString[index++]=Serial.read();
+		if(index>6)
+		{
+			break;
+		}
+	}
+	numberString[index]=0;
+	return atoi(numberString);
 }
 
 void setupmenu()
