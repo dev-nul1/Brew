@@ -2,6 +2,7 @@
 #include <Ethernet.h>
 #include <EEPROM.h>
 
+#include "s
 #include "Globals.h"
 #include "ST7565.h"
 #include "stdio.h"
@@ -139,7 +140,7 @@ void setup()
 	delay(1000);
 	glcd.clear();
 
-//	brewCore.init();
+	brewCore.init();
 }
 
 // the follow variables is a long because the time, measured in milliseconds,
@@ -181,7 +182,6 @@ void potAdjustBoil()
 // 	if (tempRead(tempPin) < 100)
 // 	{
 // 		digitalWrite(SSRpinControlHLT, HIGH);		// turn the ledPin on
-// 		Serial.println(tempRead(tempPin));
 // 	}
 
 	digitalWrite(led, HIGH);		// turn the ledPin on
@@ -198,7 +198,6 @@ int tempRead(int tempPinNum)
 	float tempC;							// TEMP SENSOR
 	tempC = analogRead(tempPinNum);			//read the value from the sensor
 	tempC = (5.0 * tempC * 100.0)/1024.0;	//convert the analog data to temperature
-
 	//Serial.print("Current Ambient Temp:");
 	//Serial.println((int)tempC);           //send the data to the computer
 #if FAHRENHEIT 
@@ -241,7 +240,8 @@ void controlHLTHeating(int temp)
 		digitalWrite(SSRpinControlHLT, HIGH);
 		glcd.display();
 	}
-	else if (temp > BOIL_THRESHOLD) {
+	else if (temp > BOIL_THRESHOLD) 
+	{
 		delay(50);
 		glcd.drawstring(0, 2, "      BOILING! ");
 		glcd.drawstring(0, 3, "   START SSR FLIP");
@@ -251,7 +251,6 @@ void controlHLTHeating(int temp)
 		{
 			val = analogRead(potPin);    // read value from pot (0-1023)
 			burner = ((val*10)/1024);
-			//Serial.println(val);
 			ssr(burner);
 			return;
 		}
@@ -266,13 +265,6 @@ void TempTime()  //main function
 	controlHLTHeating(temp1);
 	//serialPrintTemperatures();
 	handleSerialCommunication();
-// 	bool once = false;
-// 	if (once == false)
-// 	{
-// 		handleSerialCommunication();
-// 		once = true;
-// 	}
-	//serialBeerMessage(1);
 	//int temp2 = tempRead(tempPin1);			//	add me if you have two temp readings ready
 	if (errorAlert > 1 && errorSignaled == true)
 	{
@@ -361,6 +353,7 @@ void serialBeerMessage(int messageType)
 // 		Serial.flush();
 // 	}
 // }
+
 void handleSerialCommunication(void){
 	if (Serial.available() > 0)
 	{
@@ -424,6 +417,7 @@ void setupmenu()
 void manualmode()
 {	
 	Serial.println("Starting Manual Mode");
+
 	char wait = 0;					//fix me
 	bool state = true;
 	while (state)
@@ -442,13 +436,11 @@ void manualmode()
 		}
 	}
 }
-
+// 	digitalWrite(53,HIGH);
 void loop()
 {
-	TempTime();
-// 
-// 	digitalWrite(53,HIGH);
-// 	manualmode();
+	manualmode();
+
 // 	while (1)
 // 	{
 // 		if (Serial.available() > 0)
@@ -460,12 +452,12 @@ void loop()
 // 			incoming = 1;
 // 		}
 // 		//if ((button1) || ((char)incoming == '1'))
-// 		if (((char)incoming == '1'))
+// 		if (((char)incoming == '2'))
 // 		{
 // 			delay(500);
 // 			manualmode();
 // 		}
-// 		if (((char)incoming == '2'))
+// 		if (((char)incoming == '3'))
 // 		{
 // 			delay(500);
 // 			setupmenu();

@@ -9,7 +9,7 @@ extern const int SSRpinControlHLT;
 
 void BrewCoreClass::init()
 {
-	mode = IDLE;
+	mode = STARTUP;
 }
 
 int BrewCoreClass::freeRam(void)
@@ -30,17 +30,18 @@ int BrewCoreClass::freeRam(void)
 //
 //	This should at some point cause the device to trigger states like, mash in, boil mode, idle... etc.
 //
-void BrewCoreClass::StateMachine()
+void BrewCoreClass::StateMachine( int mode )
 {
 	switch(mode)
 	{
+	case STARTUP:
 	case IDLE:
 		Serial.println("Startup/IDLE waiting commands");
 		break;
 
 	case MANUALMODE:
 		Serial.println("Manual Mode");
-		//manualmode();
+		manualmode();
 		break;
 
 	case AUTOMODE:
@@ -49,13 +50,9 @@ void BrewCoreClass::StateMachine()
 	}
 }
 
-void BrewCoreClass::displayMAC()
+void BrewCoreClass::timeRemaining()
 {
 
-}
-
-void BrewCoreClass::displayIP()
-{
 
 }
 

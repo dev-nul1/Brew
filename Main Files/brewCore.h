@@ -19,9 +19,10 @@ public:
 	int freeRam(void);
 
 	void potAdjustBoil();
-	void StateMachine();
+	void StateMachine(int mode);
 	void displayMAC();
 	void displayIP();
+	void timeRemaining();
 
 private:
 };

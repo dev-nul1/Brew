@@ -58,6 +58,7 @@ typedef enum  {
 //Brew Steps PS
 //
 typedef enum {
+	STARTUP = 0,
 	IDLE,
 	MANUALMODE,
 	AUTOMODE,
