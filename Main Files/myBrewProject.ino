@@ -17,7 +17,7 @@ BrewCoreClass brewCore;
 // Arduino pins (i/o)
 //
 //
-const byte tempPin			= 2;	// 0 & 1 are off limits for now the Shield fucks them up
+const byte tempPin			= A2;	// 0 & 1 are off limits for now the Shield fucks them up
 //const byte tempPin1			= 3;	// TEMP SENSOR PIN #
 int potPin			= 10;	// select the input pin for the potentiometer
 const int SSRpinControlHLT  = 12;	// SSR FOR HLT/KETTLE ELEMENT
@@ -354,24 +354,6 @@ void serialBeerMessage(int messageType)
 	Serial.println(";");
 }
 
-// void handleSerialCommunication(void)
-// {
-// 	int newTemp;
-// 	if (Serial.available() > 0)
-// 	{
-// 		char inByte = Serial.read();
-// 		switch(inByte)
-// 		{
-// 		case 'r': //Data request
-// 			serialPrintTemperatures();
-// 			break;
-// 		default:
-// 			Serial.println(".Invalid command Received by Arduino");
-// 		}
-// 		Serial.flush();
-// 	}
-// }
-
 void handleSerialCommunication(void)
 {
 
@@ -395,9 +377,7 @@ void handleSerialCommunication(void)
 			break;
 
 		case 'f': //Set to constant fridge temperature
-			
 // 			while (brightness <= 255) {
-
 				//analogWrite(BACKLIGHT_LED_RED, brightness);
 				//analogWrite(BACKLIGHT_LED_GREEN, brightness);
 				analogWrite(BACKLIGHT_LED_RED, 128);
