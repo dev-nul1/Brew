@@ -1,8 +1,7 @@
 #include <SPI.h>
-#include <Ethernet.h>
+
 #include <EEPROM.h>
 
-#include "s
 #include "Globals.h"
 #include "ST7565.h"
 #include "stdio.h"
@@ -14,25 +13,25 @@ char versionnumber[6]		= "0.8.5";     // current build version
 //	Classes
 //
 BrewCoreClass brewCore;
-EthernetClient client;
 //
 // Arduino pins (i/o)
 //
 //
 const byte tempPin			= 2;	// 0 & 1 are off limits for now the Shield fucks them up
-const byte tempPin1			= 3;	// TEMP SENSOR PIN #
-const int SSRpinControlHLT		= 10;	// SSR FOR HLT/KETTLE ELEMENT
-const int ssrAlert			= 11;	//extra
-int potPin					= 12;	// select the input pin for the potentiometer
+//const byte tempPin1			= 3;	// TEMP SENSOR PIN #
+int potPin			= 10;	// select the input pin for the potentiometer
+const int SSRpinControlHLT  = 12;	// SSR FOR HLT/KETTLE ELEMENT
 
 const int led				= 13;
 
+//Potentiometer variables
 int val						= 0;	// variable storing value from pot
 int burner					= 0;
 int cycle					= 2;	// cycle length of .1 hertz
 
-byte buttonPress			= 1;	// We need a switch or button...
+byte buttonPress			= 1;	// We need a switch or button...  DO WE NEED THIS?
 
+//HOLDERS
 int incoming				= 0;	// placeholder for serial read char variable
 byte incomingByte			= 0;
 
@@ -42,12 +41,15 @@ int SSRVal					= 0;
 int errorAlert				= 0;
 bool errorSignaled			= false;
 
-const int chipSelect		= 4;
+//const int chipSelect		= 4;
 
 int mode;
 
 // the LCD back light is connected up to a pin so you can turn it on & off
-//#define BACKLIGHT_LED 11
+#define BACKLIGHT_LED_RED 4
+#define BACKLIGHT_LED_GREEN 3
+//#define BACKLIGHT_LED_BLUE 3
+
 // Learn how to control via the PMW the different LED's.  IE FLASH, COLOR DEPENDANT ON MODE, ETC.
 ST7565 glcd(9, 8, 7, 6, 5);			// WE NEED TO SETUP THE BACKLIGHT AND SET A COLOR.
 									// pin 9 - Serial data out (SID)
@@ -91,11 +93,13 @@ unsigned long rolltime = millis() + FIVEMIN;
 
 void formatTime(int hours, int mins, int secs, char time[]) // format a time to a string from hours, mins, secs
 {															// PW 20090203 Added support for overflow of mins and secs
-	if (secs>60) {
+	if (secs>60) 
+	{
 		secs=secs-60;
 		mins++;
 	}
-	if (mins>60) {
+	if (mins>60) 
+	{
 		mins=mins-60;
 		hours++;
 	}
@@ -116,6 +120,12 @@ void formatTimeSeconds(long secs, char time[])			// format a time to a string fr
 	int temphours = secs  / 3600;
 	formatTime(temphours,tempmins,tempsecs,time);
 }
+#if OLED
+const int displayDC = 5;       // OLED display data control
+const int displayReset = 6;    // OLED display reset 
+const int outputEnable = 7;    // Logic translator output enable (active HIGH)
+const int displaySelect = 10;  // OLED display SPI slave select
+#endif
 
 //
 // The setup routine runs once when you press reset or when the device boots up:
@@ -123,10 +133,24 @@ void formatTimeSeconds(long secs, char time[])			// format a time to a string fr
 void setup() 
 {
 	Serial.begin(9600);									//opens serial port, sets data rate to 9600 bps
+#if OLED
+	digitalWrite(displaySelect,HIGH);
+	pinMode(displaySelect, OUTPUT);
+	pinMode(displayReset, OUTPUT);
+	pinMode(displayDC, OUTPUT);
 
-	pinMode(53,OUTPUT);									//location of the SS pin, 53 on the Mega, 10 on other
-	digitalWrite(53,HIGH);
+	SPI.setBitOrder(MSBFIRST);
+	SPI.setClockDivider(SPI_CLOCK_DIV8);
+	SPI.setDataMode(SPI_MODE3);
+	SPI.begin();
+	analogReference(DEFAULT);
+	OLED_Init(); 
+	clear_Screen();
+#endif
+	//pinMode(BACKLIGHT_LED_GREEN, OUTPUT);
+	pinMode(BACKLIGHT_LED_RED, OUTPUT);
 	pinMode(SSRpinControlHLT, OUTPUT);					// sets digital pin as an output for SSR
+	pinMode(led, OUTPUT);
 
 	glcd.st7565_init();									//Initialize the LCD
 	glcd.st7565_command(CMD_DISPLAY_ON);
@@ -140,7 +164,7 @@ void setup()
 	delay(1000);
 	glcd.clear();
 
-	brewCore.init();
+	//brewCore.init();
 }
 
 // the follow variables is a long because the time, measured in milliseconds,
@@ -173,45 +197,18 @@ void ssr(byte load)
 	}
 }
 
-void potAdjustBoil()
-{
-	//	This will serve as an adjustment function for the boil.  A pot will scale the cycle time for the SSR. ON/OFF intervals
-	potValue = analogRead(potPin);
-	SSRVal = potValue;
-
-// 	if (tempRead(tempPin) < 100)
-// 	{
-// 		digitalWrite(SSRpinControlHLT, HIGH);		// turn the ledPin on
-// 	}
-
-	digitalWrite(led, HIGH);		// turn the ledPin on
-	delay(potValue);				// stop the program for some time
-	digitalWrite(led, LOW);			// turn the ledPin off
-	delay(potValue);				// stop the program for some time
-	
-	//delay(1000);
-	//return potValue;
-}
-
-int tempRead(int tempPinNum)
+float tempRead(int tempPinNum)
 {
 	float tempC;							// TEMP SENSOR
 	tempC = analogRead(tempPinNum);			//read the value from the sensor
 	tempC = (5.0 * tempC * 100.0)/1024.0;	//convert the analog data to temperature
-	//Serial.print("Current Ambient Temp:");
-	//Serial.println((int)tempC);           //send the data to the computer
-#if FAHRENHEIT 
-	// now convert to Fahrenheit
+#if FAHRENHEIT  // now convert to Fahrenheit
 	float temperatureF = (tempC * 9.0 / 5.0) + 32.0;
 	Serial.print(temperatureF); Serial.println(" degrees F");
 #endif
-	//Serial.println(tempC);				// this has the format of 21.xx instead of a rounded whole number.
 	beerTemperatureActual = tempC;			//sets temp for Python
-	//serialPrintTemperatures();
-// 	if (NULL)
-// 	{
-// 		serialBeerMessage(1);
-// 	}
+	serialPrintTemperatures();
+
 	return tempC;
 }
 
@@ -231,22 +228,44 @@ void updateMashDisplay(int const temp)
 	glcd.display();
 }
 
-void controlHLTHeating(int temp)
+void animateBacklight(int mode) 
+{
+	int brightness = 0;
+	int fadeAmount = 5;
+
+	if (mode == 1)
+	{
+		while (brightness <= 255) 
+		{
+			//analogWrite(BACKLIGHT_LED_RED, brightness);
+			//analogWrite(BACKLIGHT_LED_GREEN, brightness);
+			analogWrite(BACKLIGHT_LED_RED, brightness);
+			brightness += fadeAmount;
+			delay(20);
+		}	
+	}
+	
+}
+
+void controlHLTHeating(float temp)
 {
 	if (temp <= BOIL_THRESHOLD )	// Thresholds can be found in GLOBAL_H temp > HEAT_UP_THRESHOLD &&
 	{
 		glcd.drawstring(0, 2, "ELEMENT ON!");
 		glcd.drawstring(0, 3, "HLT HEATING");
 		digitalWrite(SSRpinControlHLT, HIGH);
+		digitalWrite(led, HIGH);
+		animateBacklight(1);
 		glcd.display();
 	}
-	else if (temp > BOIL_THRESHOLD) 
+	else if (temp > BOIL_THRESHOLD)
 	{
 		delay(50);
 		glcd.drawstring(0, 2, "      BOILING! ");
 		glcd.drawstring(0, 3, "   START SSR FLIP");
 		//Start PMW control to force screen to light up as RED LED
 		glcd.display();
+		animateBacklight(1);
 		if(temp >= BOIL_THRESHOLD)
 		{
 			val = analogRead(potPin);    // read value from pot (0-1023)
@@ -254,18 +273,17 @@ void controlHLTHeating(int temp)
 			ssr(burner);
 			return;
 		}
+		return;
 	}
 	return;
 }
 
 void TempTime()  //main function
 {
-	int temp1 = tempRead(tempPin);
 	tempRead(tempPin);
-	controlHLTHeating(temp1);
+	controlHLTHeating(beerTemperatureActual);
 	//serialPrintTemperatures();
 	handleSerialCommunication();
-	//int temp2 = tempRead(tempPin1);			//	add me if you have two temp readings ready
 	if (errorAlert > 1 && errorSignaled == true)
 	{
 		switch (errorAlert)
@@ -293,7 +311,7 @@ void TempTime()  //main function
 		last_total_time == total_time;
 		//Serial.print("Running time: ");
 		delay(700);								//fixme hack to make time ever second
-		//Serial.println(total_time);
+		Serial.println(total_time);
 		glcd.drawstring(0, 7, " RUNTIME:");
 		glcd.drawstring(60, 7, total_time);
 		glcd.display();
@@ -354,7 +372,9 @@ void serialBeerMessage(int messageType)
 // 	}
 // }
 
-void handleSerialCommunication(void){
+void handleSerialCommunication(void)
+{
+
 	if (Serial.available() > 0)
 	{
 		char inByte = Serial.read();
@@ -365,6 +385,9 @@ void handleSerialCommunication(void){
 			break;
 
 		case 'b': //Set to constant beer temperature
+			pinMode(BACKLIGHT_LED_GREEN,OUTPUT);
+			digitalWrite(BACKLIGHT_LED_GREEN, LOW);
+			
 			break;
 
 		case 'p': //Set profile temperature
@@ -372,16 +395,32 @@ void handleSerialCommunication(void){
 			break;
 
 		case 'f': //Set to constant fridge temperature
-			break;
+			
+// 			while (brightness <= 255) {
 
+				//analogWrite(BACKLIGHT_LED_RED, brightness);
+				//analogWrite(BACKLIGHT_LED_GREEN, brightness);
+				analogWrite(BACKLIGHT_LED_RED, 128);
+				//brightness += fadeAmount;
+				delay(20);
+			//}
+			break;
+		case 'd':
+			{
+				digitalWrite(BACKLIGHT_LED_GREEN, HIGH);
+				digitalWrite(BACKLIGHT_LED_RED, HIGH);
+				//digitalWrite(BACKLIGHT_LED_BLUE, HIGH);
+				break;
+			}
 		case 's': //Settings requested
 			switch(mode)
 			{
-
 			}
 			break;
 
 		case 'l': //LCD contents requested
+			pinMode(BACKLIGHT_LED_RED, OUTPUT);
+			digitalWrite(BACKLIGHT_LED_RED, LOW);
 			break;
 		default:
 			Serial.println(".Invalid command Received by Arduino");
@@ -436,7 +475,7 @@ void manualmode()
 		}
 	}
 }
-// 	digitalWrite(53,HIGH);
+
 void loop()
 {
 	manualmode();

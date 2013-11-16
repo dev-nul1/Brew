@@ -33,11 +33,11 @@ void formatTime(int hours, int mins, int secs, char time[]);
 void formatTimeSeconds(long secs, char time[]);
 //
 void ssr(byte load);
-void potAdjustBoil();
-int tempRead(int tempPinNum);
+float tempRead(int tempPinNum);
 void updateHLTDisplay(int const temp);
 void updateMashDisplay(int const temp);
-void controlHLTHeating(int temp);
+void animateBacklight(int mode);
+void controlHLTHeating(float temp);
 void TempTime();
 void serialPrintTemperatures(void);
 void serialBeerMessage(int messageType);

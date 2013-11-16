@@ -7,7 +7,7 @@
 
 #define BAD_TEMP -32768
 #define FAHRENHEIT 0
-
+#define OLED 0
 //
 //	For Python
 // 
@@ -48,11 +48,15 @@ typedef enum {
 //
 //Brew Steps PS
 //
-typedef enum  {
-	BOIL_THRESHOLD = 30,
-	HEAT_UP_THRESHOLD = 10,
-	LOW_THRESHOLD = 19
-}thresholds;
+const float BOIL_THRESHOLD = 30.0f;
+const float HEAT_UP_THRESHOLD = 10.0f;
+const float	LOW_THRESHOLD = 19.0f;
+
+// typedef enum  {
+// 	BOIL_THRESHOLD = 30,
+// 	HEAT_UP_THRESHOLD = 10,
+// 	LOW_THRESHOLD = 19
+// }thresholds;
 
 //
 //Brew Steps PS

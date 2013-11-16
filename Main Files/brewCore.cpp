@@ -41,7 +41,7 @@ void BrewCoreClass::StateMachine( int mode )
 
 	case MANUALMODE:
 		Serial.println("Manual Mode");
-		manualmode();
+		//manualmode();
 		break;
 
 	case AUTOMODE:
