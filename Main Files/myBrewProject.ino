@@ -24,7 +24,7 @@ const int SSRpinControlHLT  = 12;	// SSR FOR HLT/KETTLE ELEMENT
 
 const int led				= 13;
 
-//Potentiometer variables
+//Potentiometer variables+
 int val						= 0;	// variable storing value from pot
 int burner					= 0;
 int cycle					= 2;	// cycle length of .1 hertz
@@ -160,7 +160,7 @@ void setup()
 
 	delay(2000);
 	glcd.clear();
-	glcd.drawstring(0, 5, versionnumber); 
+	glcd.drawstring(0, 5, versionnumber);
 	delay(1000);
 	glcd.clear();
 
@@ -180,10 +180,10 @@ void ssr(byte load)
 
 	unsigned long currentMillis = millis();
 
-	if(currentMillis - previousMillis > on) 
+	if(currentMillis - previousMillis > on)
 	{
 		// save the last time you blinked the LED 
-		previousMillis = currentMillis;   
+		previousMillis = currentMillis;  
 
 		// if the LED is off turn it on and vice-versa:
 		if (ledState == LOW)
@@ -237,12 +237,21 @@ void animateBacklight(int mode)
 	{
 		while (brightness <= 255) 
 		{
-			//analogWrite(BACKLIGHT_LED_RED, brightness);
 			//analogWrite(BACKLIGHT_LED_GREEN, brightness);
 			analogWrite(BACKLIGHT_LED_RED, brightness);
 			brightness += fadeAmount;
 			delay(20);
-		}	
+		}
+	}
+	if (mode == 2)
+	{
+		while (brightness <= 255) 
+		{
+			//analogWrite(BACKLIGHT_LED_RED, brightness);
+			analogWrite(BACKLIGHT_LED_GREEN, brightness);
+			brightness += fadeAmount;
+			delay(20);
+		}
 	}
 	
 }
@@ -265,7 +274,7 @@ void controlHLTHeating(float temp)
 		glcd.drawstring(0, 3, "   START SSR FLIP");
 		//Start PMW control to force screen to light up as RED LED
 		glcd.display();
-		animateBacklight(1);
+		animateBacklight(2);
 		if(temp >= BOIL_THRESHOLD)
 		{
 			val = analogRead(potPin);    // read value from pot (0-1023)
@@ -356,7 +365,6 @@ void serialBeerMessage(int messageType)
 
 void handleSerialCommunication(void)
 {
-
 	if (Serial.available() > 0)
 	{
 		char inByte = Serial.read();

@@ -48,7 +48,7 @@ typedef enum {
 //
 //Brew Steps PS
 //
-const float BOIL_THRESHOLD = 30.0f;
+const float BOIL_THRESHOLD = 99.0f;
 const float HEAT_UP_THRESHOLD = 10.0f;
 const float	LOW_THRESHOLD = 19.0f;
 
